@@ -1,0 +1,5 @@
+{
+	"SoundEngine" : {
+		"SoundFontFolder" : "rsc/sf"
+	}
+}
