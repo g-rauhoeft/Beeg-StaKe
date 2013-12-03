@@ -1,6 +1,6 @@
 package beegstake.audio;
 
-public interface Instrument {
+public interface IInstrumentInformation {
 	public String getName();
 	public String getDescription();
 }
