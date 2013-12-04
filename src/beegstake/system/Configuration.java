@@ -29,10 +29,10 @@ public class Configuration {
 		return configuration;
 	}
 
-	public static JSONObject getConfiguration(Class cls) {
+	public static JSONObject getConfiguration(Class<?> cls) {
 		return configuration.getJSONObject(cls.getSimpleName());
 	}
-	
+
 	public static JSONObject getConfiguration(String key) {
 		return configuration.getJSONObject(key);
 	}

@@ -1,38 +1,60 @@
 package beegstake.audio;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+
+import org.json.JSONObject;
 
 import beegstake.system.Configuration;
 
+import com.sun.media.sound.AudioSynthesizer;
+import com.sun.media.sound.SF2Soundbank;
+
 public class SoundEngine implements ISoundEngine {
+	private AudioSynthesizer synthesizer;
+	private ArrayList<Instrument> instruments;
 
 	public SoundEngine() {
-
+		this.instruments = new ArrayList<Instrument>();
+		try {
+			this.synthesizer = (AudioSynthesizer) MidiSystem.getSynthesizer();
+			this.synthesizer.open();
+			this.synthesizer.unloadAllInstruments(synthesizer
+					.getDefaultSoundbank());
+			Instrument.init(synthesizer.getChannels());
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		}
+		loadInstruments();
 	}
 
-	public boolean loadInstruments() {
-		
+	private boolean loadInstruments() {
+		try {
+			SF2Soundbank soundbank = new SF2Soundbank(new FileInputStream(
+					new File(getConfig().getString("SoundFont"))));
+			synthesizer.loadAllInstruments(soundbank);
+		} catch (IOException e) {
+			return false;
+		}
+		for (javax.sound.midi.Instrument instrument : synthesizer
+				.getLoadedInstruments()) {
+			instruments.add(new Instrument(instrument.getPatch().getProgram(),
+					new InstrumentInformation(instrument.getName(), "")));
+		}
 		return true;
 	}
-	
-	public String[] getListOfInstruments(){
-		File folder = new File(Configuration.getConfiguration(this.getClass())
-				.getString("SoundFontFolder"));
-		String[] list = folder.list(new FilenameFilter() {
-			@Override
-			public boolean accept(File file, String name) {
-				return name.endsWith(".sf");
-			}
-		});
-		return list;
+
+	private JSONObject getConfig() {
+		return Configuration.getConfiguration(this.getClass());
 	}
 
 	@Override
-	public ArrayList<IInstrument> getAvailableInstruments() {
-		// TODO Auto-generated method stub
-		return null;
+	public final ArrayList<Instrument> getAvailableInstruments() {
+		return instruments;
 	}
 }

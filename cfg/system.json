@@ -1,5 +1,9 @@
 {
 	"SoundEngine" : {
-		"SoundFontFolder" : "rsc/sf"
+		"SoundFont" : "rsc/sf/Sonatina_Symphonic_Orchestra.sf2"
+	},
+	"FingerClass" : {
+		"FingerSize" : "5",
+		"FingerSensitivity" : "100"
 	}
 }
