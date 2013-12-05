@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/gervill.jar"/>
 	<classpathentry kind="lib" path="lib/json.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Kevser/Documents/GitHub/Beeg-StaKe/lib/libTUIO.jar"/>
+	<classpathentry kind="lib" path="lib/libTUIO.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
