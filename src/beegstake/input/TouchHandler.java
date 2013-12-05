@@ -1,7 +1,15 @@
 package beegstake.input;
+
 import java.awt.*;
 import java.util.*;
+import java.awt.event.MouseEvent;
+//import swt.events.TouchEvent;
+
+import java.lang.Object;
+
 import javax.swing.*;
+
+import beegstake.gui.ITouchInterface;
 import TUIO.*;
 
 public class TouchHandler extends JComponent implements TuioListener {
@@ -16,11 +24,22 @@ public class TouchHandler extends JComponent implements TuioListener {
 	private float						scale						= 1.0f;
 	public boolean						verbose						= false;
 
-	private static final boolean		DEBUG_AND_EVALUATION_MODE	= false;
+	private static final boolean		DEBUG_AND_EVALUATION_MODE	= true;
+	private static final boolean		DEBUG_WITH_SYSO				= true;
+
+	private ITouchInterface				touchInterface;
+	
+//	 private TouchPoint _touchPoint;
+	 
+//	 private Touch touch;
 
 	// **********************************************************************
 	// **********************************************************************
 	public void setSize(int w, int h) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void setSize(int w, int h) ");
+		}
+
 		super.setSize(w, h);
 		width = w;
 		height = h;
@@ -29,6 +48,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void addTuioCursor(TuioCursor tcur) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void addTuioCursor(TuioCursor tcur)");
+		}
+
 		if (!cursorList.containsKey(tcur.getSessionID())) {
 			cursorList.put(tcur.getSessionID(), tcur);
 			repaint();
@@ -42,8 +65,9 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void addTuioObject(TuioObject tobj) {
-		// TODO Auto-generated method stub
-		System.out.println("addTuioObject");
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("addTuioObject --> public void addTuioObject(TuioObject tobj) ");
+		}
 
 		TObject demo = new TObject(tobj);
 		objectList.put(tobj.getSessionID(), demo);
@@ -56,11 +80,19 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void refresh(TuioTime frameTime) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void refresh(TuioTime frameTime)");
+		}
+
 		repaint();
 	}
 
 	@Override
 	public void removeTuioCursor(TuioCursor tcur) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void removeTuioCursor(TuioCursor tcur)");
+		}
+
 		cursorList.remove(tcur.getSessionID());
 		repaint();
 
@@ -71,6 +103,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void removeTuioObject(TuioObject tobj) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void removeTuioObject(TuioObject tobj)");
+		}
+
 		objectList.remove(tobj.getSessionID());
 
 		if (verbose) {
@@ -80,6 +116,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void updateTuioCursor(TuioCursor tcur) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void updateTuioCursor(TuioCursor tcur)");
+		}
+
 		repaint();
 
 		if (verbose) {
@@ -90,6 +130,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	@Override
 	public void updateTuioObject(TuioObject tobj) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void updateTuioCursor(TuioCursor tcur)");
+		}
+
 		TObject demo = (TObject) objectList.get(tobj.getSessionID());
 		demo.update(tobj);
 
@@ -101,6 +145,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 	}
 
 	public void paint(Graphics g) {
+		if (DEBUG_WITH_SYSO) {
+			System.out.println("public void updateTuioCursor(TuioCursor tcur)");
+		}
+
 		update(g);
 	}
 
@@ -140,8 +188,14 @@ public class TouchHandler extends JComponent implements TuioListener {
 			int s = (int) (scale * finger_size);
 			fingerObject2D.fillOval(current_point.getScreenX(w - s / 2), current_point.getScreenY(h - s / 2), s, s);
 			fingerObject2D.setPaint(Color.black);
-			fingerObject2D.drawString(tcur.getCursorID() + "   |    X: " + current_point.getScreenX(w) + "   Y: "
-					+ current_point.getScreenY(h), current_point.getScreenX(w), current_point.getScreenY(h));
+
+			if (DEBUG_AND_EVALUATION_MODE) {
+				fingerObject2D.drawString(tcur.getCursorID() + "   |    X: " + current_point.getScreenX(w) + "   Y: "
+						+ current_point.getScreenY(h), current_point.getScreenX(w), current_point.getScreenY(h));
+			} else {
+				fingerObject2D.drawString(tcur.getCursorID() + " ", current_point.getScreenX(w),
+						current_point.getScreenY(h));
+			}
 		}
 
 		// draw the objects
