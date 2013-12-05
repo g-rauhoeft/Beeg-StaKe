@@ -2,6 +2,10 @@
 	"SoundEngine" : {
 		"SoundFont" : "rsc/sf/Sonatina_Symphonic_Orchestra.sf2"
 	},
+	"Scale" : [
+		{"name" : "Major", "spacings" : [2,2,1,2,2,2,1]},
+		{"name" : "Pentatonic Minor Blues", "spacings" : [3,2,1,1,3,2]},
+	],
 	"FingerClass" : {
 		"FingerSize" : "5",
 		"FingerSensitivity" : "100"
