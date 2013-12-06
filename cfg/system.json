@@ -3,8 +3,20 @@
 		"SoundFont" : "rsc/sf/Sonatina_Symphonic_Orchestra.sf2"
 	},
 	"Scale" : [
-		{"name" : "Major", "spacings" : [2,2,1,2,2,2,1]},
+		{"name" : "Major / Ionian", "spacings" : [2,2,1,2,2,2,1]},
+		{"name" : "Minor / Aeolian", "spacings" : [2,1,2,2,1,2,2]},
+		{"name" : "Melodic Minor", "spacings" : [2,1,2,2,2,2,1]},
 		{"name" : "Pentatonic Minor Blues", "spacings" : [3,2,1,1,3,2]},
+		{"name" : "Pentatonic Major Blues", "spacings" : [2,1,1,3,2,3]},
+		{"name" : "Chinese", "spacings" : [4,2,1,4,1]},
+		{"name" : "Arabic", "spacings" : [2,2,1,1,2,2,2]},
+		{"name" : "Japanese", "spacings" : [1,4,2,3,2]},
+		{"name" : "Spanish Gypsy", "spacings" : [1,3,1,2,1,2,2]},
+		{"name" : "Dorian", "spacings" : [2,1,2,2,2,1,2]},
+		{"name" : "Phrygian", "spacings" : [1,2,2,2,1,2,2]},
+		{"name" : "Lydian", "spacings" : [2,2,2,1,2,2,1]},
+		{"name" : "Mixolydian", "spacings" : [2,2,1,2,2,1,2]},
+		{"name" : "Locrian", "spacings" : [1,2,2,1,2,2,2]}
 	],
 	"FingerClass" : {
 		"FingerSize" : "5",
