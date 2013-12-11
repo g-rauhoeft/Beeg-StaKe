@@ -14,7 +14,7 @@ public class Test extends JFrame {
      
     public Test(String name) {
         super(name);
-        setResizable(false);
+        setResizable(true);
     }
      
     public void initGaps() {

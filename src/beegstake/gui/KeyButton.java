@@ -10,7 +10,8 @@ public class KeyButton extends JButton implements MouseListener {
 
 	ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
 
-	public KeyButton() {
+	public KeyButton(String name) {
+		super(name);
 		this.addMouseListener(this);
 	}
 

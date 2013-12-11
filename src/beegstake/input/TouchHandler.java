@@ -10,6 +10,7 @@ import java.lang.Object;
 import javax.swing.*;
 
 import beegstake.gui.ITouchInterface;
+import beegstake.gui.KeyButton;
 import TUIO.*;
 
 public class TouchHandler extends JComponent implements TuioListener {
@@ -123,8 +124,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 		repaint();
 
 		if (verbose) {
-			System.out.println("set cur " + tcur.getCursorID() + " (" + tcur.getSessionID() + ") " + tcur.getX() + " "
-					+ tcur.getY() + " " + tcur.getMotionSpeed() + " " + tcur.getMotionAccel());
+			System.out.println("set cur " + tcur.getCursorID() + " ("
+					+ tcur.getSessionID() + ") " + tcur.getX() + " "
+					+ tcur.getY() + " " + tcur.getMotionSpeed() + " "
+					+ tcur.getMotionAccel());
 		}
 	}
 
@@ -150,6 +153,10 @@ public class TouchHandler extends JComponent implements TuioListener {
 		}
 
 		update(g);
+	}
+	
+	public Hashtable<Long, TuioCursor> getCursorList(){
+		return this.cursorList;
 	}
 
 	// TODO Hier das Interface von BeKe aufrufen und die Koordinaten übergeben

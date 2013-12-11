@@ -1,26 +1,38 @@
 package beegstake.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 //GridBagLayout
 //GroupLayout
 public class GUI extends JFrame{
-	private GridLayout baseLayout = new GridLayout(3,1);
+	//private GridLayout baseLayout = new GridLayout(3,1);
 	private GridLayout baseOfKeysTop = new GridLayout(1, 1);
 	private final JPanel panelOfKeysTop = new JPanel(baseOfKeysTop);
 	private GridLayout baseOfKeysBottom = new GridLayout(1, 1);
 	private final JPanel panelOfKeysBottom = new JPanel(baseOfKeysBottom);
 	private GridBagLayout control = new GridBagLayout();
 	private final JPanel controlPanel = new JPanel(control);
-	//40 Tasten
-	ArrayList<KeyButton> keyButtons = new ArrayList<KeyButton>(39);
-
+	
+	public ArrayList<KeyButton> testGenerateButtons(JPanel panel){
+		ArrayList<KeyButton> buttons = new ArrayList<KeyButton>(20);
+		for (int i=0; i<20; i++){
+			KeyButton test = new KeyButton("Test");
+			test.setPreferredSize(new Dimension(50, 200));
+			buttons.add(test);
+		}
+		return buttons;
+	}
 	
 	public GUI(String name){
 		super(name);
@@ -31,14 +43,34 @@ public class GUI extends JFrame{
 	 * The basement of the Frame. It contains two GridLayouts and an GridBagLayout.
 	 * @param Container The GUI Container.
 	 */
-	public void base(Container con){
-		final JPanel panel = new JPanel(baseLayout);
-		panel.setPreferredSize(new Dimension(1000, 600));
-		panel.add(panelOfKeysTop);
-		panel.add(panelOfKeysBottom);
-		panel.add(controlPanel);
-		this.add(panel);
+	public void base(Container con){		
+		final JPanel panelTop = new JPanel(baseOfKeysTop);
+		panelTop.setPreferredSize(new Dimension(1000, 200));
+		panelTop.add(panelOfKeysTop);
+		ArrayList<KeyButton> testGenerateButtons = testGenerateButtons(panelTop);
+		for (JButton b: testGenerateButtons){
+			panelTop.add(b);
+		}			
+        
+		final JPanel panelCenter = new JPanel(control);
+		panelCenter.setPreferredSize(new Dimension(1000, 200));
+		panelCenter.add(controlPanel);
+		panelCenter.add(new JButton("lol"));
+		panelCenter.add(new JButton("lol"));
+		
+		final JPanel panelBottom = new JPanel(baseOfKeysBottom);
+		panelBottom.setPreferredSize(new Dimension(1000, 200));
+		panelBottom.add(panelOfKeysBottom);
+		ArrayList<KeyButton> testGenerateButtons2 = testGenerateButtons(panelBottom);
+		for (JButton b: testGenerateButtons2){
+			panelBottom.add(b);
+		}
+		
+		con.add(panelTop, BorderLayout.NORTH);
+		con.add(panelCenter, BorderLayout.CENTER);
+		con.add(panelBottom, BorderLayout.SOUTH);
 	}
+	
 	
 	
     /**
