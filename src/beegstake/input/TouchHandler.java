@@ -2,18 +2,17 @@ package beegstake.input;
 
 import java.awt.*;
 import java.util.*;
-import java.awt.event.MouseEvent;
 //import swt.events.TouchEvent;
 
-import java.lang.Object;
 
 import javax.swing.*;
 
 import beegstake.gui.ITouchInterface;
-import beegstake.gui.KeyButton;
 import TUIO.*;
 
 public class TouchHandler extends JComponent implements TuioListener {
+
+	private static final long serialVersionUID = 1L;
 	private Hashtable<Long, TObject>	objectList					= new Hashtable<Long, TObject>();
 	private Hashtable<Long, TuioCursor>	cursorList					= new Hashtable<Long, TuioCursor>();
 
@@ -30,12 +29,13 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 	private ITouchInterface				touchInterface;
 	
-//	 private TouchPoint _touchPoint;
+	//	 private TouchPoint _touchPoint;
 	 
-//	 private Touch touch;
+	//	 private Touch touch;
 
-	// **********************************************************************
-	// **********************************************************************
+	//TODO: TUIO event erzeugen aus den bewegungen, daraus ein mouseevent emulieren
+	//TODO: Im Internet nach: MouseEvent awt/swing inject oder emulieren  suchen
+	
 	public void setSize(int w, int h) {
 		if (DEBUG_WITH_SYSO) {
 			System.out.println("public void setSize(int w, int h) ");
@@ -95,6 +95,7 @@ public class TouchHandler extends JComponent implements TuioListener {
 		}
 
 		cursorList.remove(tcur.getSessionID());
+		//event werfen
 		repaint();
 
 		if (verbose) {
@@ -115,6 +116,7 @@ public class TouchHandler extends JComponent implements TuioListener {
 		}
 	}
 
+	
 	@Override
 	public void updateTuioCursor(TuioCursor tcur) {
 		if (DEBUG_WITH_SYSO) {
@@ -155,9 +157,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 		update(g);
 	}
 	
-	public Hashtable<Long, TuioCursor> getCursorList(){
-		return this.cursorList;
-	}
 
 	// TODO Hier das Interface von BeKe aufrufen und die Koordinaten übergeben
 	public void update(Graphics finger) {
