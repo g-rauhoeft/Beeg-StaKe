@@ -18,11 +18,8 @@ import javax.swing.border.Border;
 public class GUI extends JFrame{
 	//private GridLayout baseLayout = new GridLayout(3,1);
 	private GridLayout baseOfKeysTop = new GridLayout(1, 1);
-	private final JPanel panelOfKeysTop = new JPanel(baseOfKeysTop);
 	private GridLayout baseOfKeysBottom = new GridLayout(1, 1);
-	private final JPanel panelOfKeysBottom = new JPanel(baseOfKeysBottom);
 	private GridBagLayout control = new GridBagLayout();
-	private final JPanel controlPanel = new JPanel(control);
 	
 	public ArrayList<KeyButton> testGenerateButtons(JPanel panel){
 		ArrayList<KeyButton> buttons = new ArrayList<KeyButton>(20);
@@ -46,7 +43,6 @@ public class GUI extends JFrame{
 	public void base(Container con){		
 		final JPanel panelTop = new JPanel(baseOfKeysTop);
 		panelTop.setPreferredSize(new Dimension(1000, 200));
-		panelTop.add(panelOfKeysTop);
 		ArrayList<KeyButton> testGenerateButtons = testGenerateButtons(panelTop);
 		for (JButton b: testGenerateButtons){
 			panelTop.add(b);
@@ -54,13 +50,11 @@ public class GUI extends JFrame{
         
 		final JPanel panelCenter = new JPanel(control);
 		panelCenter.setPreferredSize(new Dimension(1000, 200));
-		panelCenter.add(controlPanel);
 		panelCenter.add(new JButton("lol"));
 		panelCenter.add(new JButton("lol"));
 		
 		final JPanel panelBottom = new JPanel(baseOfKeysBottom);
 		panelBottom.setPreferredSize(new Dimension(1000, 200));
-		panelBottom.add(panelOfKeysBottom);
 		ArrayList<KeyButton> testGenerateButtons2 = testGenerateButtons(panelBottom);
 		for (JButton b: testGenerateButtons2){
 			panelBottom.add(b);
