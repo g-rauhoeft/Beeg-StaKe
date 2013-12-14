@@ -1,5 +1,6 @@
 package beegstake.gui;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -22,14 +23,16 @@ public class KeyButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		this.setBackground(new Color(255,106,106));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		if(this.getText()!=null && this.getText().endsWith("#")){
+			this.setBackground(new Color(176,176,176));
+		}else{
+			this.setBackground(new Color(255,255,255));
+		}
 	}
 
 	
