@@ -58,7 +58,7 @@ public class Instrument {
 		channels[channel].noteOn(key, volume);
 	}
 
-	public void changeVolume(int key, int volume) {
+	public void changeModulation(int key, int volume) {
 		channels[channel].setPolyPressure(key, volume);
 	}
 

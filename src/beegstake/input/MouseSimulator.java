@@ -1,4 +1,5 @@
 package beegstake.input;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
@@ -11,8 +12,9 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * @author Greg Rauhoeft A class to simulate mouse behavior in awt on
- *         multi-touch tables
+ * @author Greg Rauhoeft 
+ * 		A class to simulate mouse behavior in awt on
+ *      multi-touch tables
  */
 public class MouseSimulator {
 
@@ -70,7 +72,7 @@ public class MouseSimulator {
 				pressedMap.put(id, new HashSet<Component>());
 			}
 			boolean newComponent = pressedMap.get(id).add(component);
-			if(newComponent){
+			if (newComponent) {
 				for (MouseListener listener : component.getMouseListeners()) {
 					listener.mouseEntered(new MouseEvent(component,
 							MouseEvent.MOUSE_ENTERED, 1l, 0, x, y, 1, false));
@@ -105,17 +107,17 @@ public class MouseSimulator {
 		@Override
 		public void performAction(int x, int y, int id, Component component) {
 			if (pressedMap.containsKey(id)) {
-				LinkedList<Component> componentsToRemove = new LinkedList<Component>(); 
+				LinkedList<Component> componentsToRemove = new LinkedList<Component>();
 				for (Component pressedComponent : pressedMap.get(id)) {
 					Point p = getRelativeCoordinates(x, y, component,
 							pressedComponent);
 					if (!pressedComponent.contains(p)) {
-						//Exited
+						// Exited
 						for (MouseListener listener : pressedComponent
 								.getMouseListeners()) {
 							listener.mouseExited(new MouseEvent(component,
-									MouseEvent.MOUSE_EXITED, 1l, 0, p.x, p.y, 1,
-									false));
+									MouseEvent.MOUSE_EXITED, 1l, 0, p.x, p.y,
+									1, false));
 							componentsToRemove.add(pressedComponent);
 						}
 					} else {
@@ -127,7 +129,7 @@ public class MouseSimulator {
 						}
 					}
 				}
-				for(Component toRemove : componentsToRemove){
+				for (Component toRemove : componentsToRemove) {
 					pressedMap.get(id).remove(toRemove);
 				}
 			}
