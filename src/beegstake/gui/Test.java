@@ -19,6 +19,7 @@ public class Test extends JFrame {
      
     public void initGaps() {
         horGapComboBox = new JComboBox(gapList);
+        horGapComboBox.setPreferredSize(new Dimension(400,500));
         verGapComboBox = new JComboBox(gapList);
     }
      
@@ -47,6 +48,9 @@ public class Test extends JFrame {
         controls.add(new Label("Vertical gap:"));
         controls.add(new Label(" "));
         controls.add(horGapComboBox);
+        controls.add(verGapComboBox);
+        controls.add(applyButton);
+        controls.add(new Label("l"));
         controls.add(verGapComboBox);
         controls.add(applyButton);
          
