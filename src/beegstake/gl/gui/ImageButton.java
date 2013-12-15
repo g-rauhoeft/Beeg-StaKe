@@ -10,20 +10,22 @@ import beegstake.gl.gui.util.ResourceManager;
 public class ImageButton extends RectComponent {
 	private Texture texture;
 
-	public ImageButton(Point position, int width, int height, String path) {
+	public ImageButton(Point position, int width, int height) {
 		super(position, width, height);
-		this.texture = ResourceManager.getTexture(path);
 	}
 	
 	public ImageButton(Point position, String path){
-		this(position, 0, 0, path);
+		this(position, 0, 0);
+		this.texture = ResourceManager.getTexture(path);
 		this.width = texture.getTextureWidth();
 		this.height = texture.getTextureHeight();
 	}
 
 	@Override
 	public void render() {
-		texture.bind();
+		if(texture !=null){			
+			texture.bind();
+		}
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex2i(position.getX(), position.getY());
@@ -34,6 +36,7 @@ public class ImageButton extends RectComponent {
 		GL11.glTexCoord2f(0, 1);
 		GL11.glVertex2i(position.getX(), position.getY() + height);
 		GL11.glEnd();
+//		texture.release();
 	}
 
 	public int getWidth() {
