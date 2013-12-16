@@ -1,6 +1,7 @@
 package beegstake.gl.gui;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 import org.newdawn.slick.opengl.Texture;
 
 import beegstake.gl.gui.util.Point;
@@ -9,7 +10,6 @@ import beegstake.gl.gui.util.ResourceManager;
 
 public class ImageButton extends RectComponent {
 	private Texture texture;
-
 	public ImageButton(Point position, int width, int height, String path) {
 		super(position, width, height);
 		this.texture = ResourceManager.getTexture(path);
@@ -23,7 +23,9 @@ public class ImageButton extends RectComponent {
 
 	@Override
 	public void render() {
-		texture.bind();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex2i(position.getX(), position.getY());
@@ -34,6 +36,7 @@ public class ImageButton extends RectComponent {
 		GL11.glTexCoord2f(0, 1);
 		GL11.glVertex2i(position.getX(), position.getY() + height);
 		GL11.glEnd();
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 	}
 
 	public int getWidth() {

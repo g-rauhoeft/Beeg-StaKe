@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import beegstake.audio.SoundEngine;
+import beegstake.gl.gui.BumpButton;
 import beegstake.gl.gui.CursorEvent;
 import beegstake.gl.gui.GUI;
 import beegstake.gl.gui.ICursorListener;
@@ -13,7 +14,7 @@ import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.ResourceManager;
 import beegstake.system.Configuration;
 
-public class GLGUITEST {
+public class GLGUITEST0 {
 	public void start() {
 		try {
 			Display.setDisplayMode(DisplayUtilities.getMaxDisplayMode());
@@ -49,16 +50,32 @@ public class GLGUITEST {
 				s.getAvailableInstruments().get(2).changeModulation(65, (int) (percentage*127));
 			}
 		});
-		ImageButton imgButton1 = new ImageButton(new Point(500, 250),"rsc/img/test.png");
+		BumpButton imgButton1 = new BumpButton(new Point(500, 250),"rsc/img/test_normal.png","rsc/img/test.png");
 		imgButton1.add(new ICursorListener(){
 			@Override
 			public void cursorOver(CursorEvent event) {
-				((ImageButton)event.getComponent()).setTexture(ResourceManager.getTexture("rsc/img/testo.png"));
+				((BumpButton)event.getComponent()).setDiffuseMap(ResourceManager.getTexture("rsc/img/testo.png"));
 				s.getAvailableInstruments().get(2).playSound(70, 100);
 			}
 			@Override
 			public void cursorOut(CursorEvent event) {
-				((ImageButton)event.getComponent()).setTexture(ResourceManager.getTexture("rsc/img/test.png"));
+				((BumpButton)event.getComponent()).setDiffuseMap(ResourceManager.getTexture("rsc/img/test.png"));
+				s.getAvailableInstruments().get(2).stopSound(70);
+			}
+			@Override
+			public void cursorMoved(CursorEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		BumpButton imgButton2 = new BumpButton(new Point(750, 250),"rsc/img/test_button_normal.png", "rsc/img/test_button_diffuse.png");
+		imgButton2.add(new ICursorListener(){
+			@Override
+			public void cursorOver(CursorEvent event) {
+				s.getAvailableInstruments().get(2).playSound(70, 100);
+			}
+			@Override
+			public void cursorOut(CursorEvent event) {
 				s.getAvailableInstruments().get(2).stopSound(70);
 			}
 			@Override
@@ -69,6 +86,7 @@ public class GLGUITEST {
 		});
 		gui.add(imgButton);
 		gui.add(imgButton1);
+		gui.add(imgButton2);
 		while (!Display.isCloseRequested()) {
 			Display.update();
 			gui.injectCursorPosition(new Point(Mouse.getX(), Display.getHeight()-Mouse.getY()), 0);
@@ -78,6 +96,6 @@ public class GLGUITEST {
 	}
 
 	public static void main(String[] args) {
-		new GLGUITEST().start();
+		new GLGUITEST0().start();
 	}
 }

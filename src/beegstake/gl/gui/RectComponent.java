@@ -3,7 +3,7 @@ package beegstake.gl.gui;
 import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.GUIComponent;
 
-public class RectComponent extends GUIComponent {
+public abstract class RectComponent extends GUIComponent {
 	public RectComponent(Point position, int width, int height) {
 		super(position, width, height);
 	}
@@ -14,12 +14,6 @@ public class RectComponent extends GUIComponent {
 				&& point.getX() < this.position.getX() + this.getWidth()
 				&& point.getY() > this.position.getY()
 				&& point.getY() < this.position.getY() + this.getHeight();
-	}
-
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public int getWidth() {

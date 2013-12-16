@@ -9,14 +9,10 @@ import org.lwjgl.opengl.GL11;
 
 import beegstake.gl.gui.util.DisplayUtilities;
 import beegstake.gl.gui.util.Point;
-import beegstake.gl.gui.CursorEvent;
-import beegstake.gl.gui.GUIComponent;
-import beegstake.gl.gui.IRenderable;
 
 public class GUI implements IRenderable {
 	private LinkedList<GUIComponent> components;
 	private HashMap<GUIComponent, HashSet<Integer>> activeCursors;
-
 	public GUI() {
 		this.components = new LinkedList<GUIComponent>();
 		this.activeCursors = new HashMap<GUIComponent, HashSet<Integer>>();
@@ -32,8 +28,8 @@ public class GUI implements IRenderable {
 
 	@Override
 	public void render() {
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		DisplayUtilities.setOrtho();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);         
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
