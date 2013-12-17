@@ -1,51 +1,53 @@
 package beegstake.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
 import beegstake.musictheory.KeyNames;
-
-//GroupLayout evtl benutzen....
 
 public class GUI extends JFrame{
 	private static final long serialVersionUID = 1L;
-	protected final int PANEL_WIDTH = 1300;
-	protected final int HEIGHT = 200;
 	private GridLayout layoutTop = new GridLayout(1, 1);
 	private GridLayout layoutBottom = new GridLayout(1, 1);
-	private GridBagLayout layoutCenter = new GridBagLayout();
-	GridBagConstraints c = new GridBagConstraints();
-
-    private JButton octavePlusOne = new JButton("Octave +1");
-	private JButton keyPlusOne = new JButton("Key +1");	
-	private JButton octaveMinusOne = new JButton("Octave -1");
-	private JButton keyMinusOne = new JButton("Key -1");
-	private JButton instrument = new JButton("Instrument");
-	private JButton pitchBend = new JButton("Pitch Blend");
-	private JButton otherControls = new JButton("Other Controls");
-
+	private FlowLayout layoutCenter = new FlowLayout(0,0,0);
+ 
+	private Color color = new Color(173,216,230);
+    private ControlButton octavePlusOne = new ControlButton("Octave +1", color);
+	private ControlButton keyPlusOne = new ControlButton("Key +1", color);	
+	private ControlButton octaveMinusOne = new ControlButton("Octave -1", color);
+	private ControlButton keyMinusOne = new ControlButton("Key -1", color);
+	private ControlButton instrument = new ControlButton("Instrument", color);
+	private ControlButton pitchBend = new ControlButton("Pitch Blend", color);
+	private ControlButton otherControls = new ControlButton("Other Controls", color);
+	
+    private ControlButton octavePlusOne2 = new ControlButton("Octave +1", color);
+	private ControlButton keyPlusOne2 = new ControlButton("Key +1", color);	
+	private ControlButton octaveMinusOne2 = new ControlButton("Octave -1", color);
+	private ControlButton keyMinusOne2 = new ControlButton("Key -1", color);
+	private ControlButton instrument2 = new ControlButton("Instrument", color);
+	private ControlButton pitchBend2 = new ControlButton("Pitch Blend", color);
+	private ControlButton otherControls2 = new ControlButton("Other Controls", color);
+	
 	/**
 	 * GUI Constructor.
 	 * @param name The name of the Application.
 	 */
 	public GUI(String name){
 		super(name);
-		setResizable(true);
+		this.setMinimumSize(new Dimension(1366,768));
+		setExtendedState(MAXIMIZED_BOTH);
+		setUndecorated(true); 
 	}
 	
 	
@@ -53,9 +55,11 @@ public class GUI extends JFrame{
 	 * The basement of the Frame. It contains three GridLayouts.
 	 * @param Container The ContentPane for GUI
 	 */
-	public void base(Container con){		
+	public void base(Container con){
+		int width = this.getWidth();
+		int height= this.getHeight()/3+28;
 		final JPanel panelTop = new JPanel(layoutTop);
-		panelTop.setPreferredSize(new Dimension(PANEL_WIDTH, HEIGHT));
+		panelTop.setPreferredSize(new Dimension(width, height));
 		panelTop.setName("top");
 		ArrayList<KeyButton> generateButtons = generateKeyButtons(panelTop);
 		for (JButton b: generateButtons){
@@ -64,7 +68,7 @@ public class GUI extends JFrame{
 		}			
 		
 		final JPanel panelBottom = new JPanel(layoutBottom);
-		panelBottom.setPreferredSize(new Dimension(PANEL_WIDTH, HEIGHT));
+		panelBottom.setPreferredSize(new Dimension(width, height));
 		panelBottom.setName("bottom");
 		ArrayList<KeyButton> generateButtons2 = generateKeyButtons(panelBottom);
 		for (JButton b: generateButtons2){
@@ -76,30 +80,35 @@ public class GUI extends JFrame{
 		con.add(panelBottom, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Buttons for the Control Area will be added.
+	 * @return JPanel The Panel containing the ControlButtons
+	 */
 	public JPanel controlArea(){
+		int width = this.getWidth();
+		int height= this.getHeight()/3+28;
 		final JPanel panelCenter = new JPanel(layoutCenter);
-		panelCenter.setPreferredSize(new Dimension(PANEL_WIDTH, HEIGHT));
-	    c.fill = GridBagConstraints.FIRST_LINE_START;
-
-		panelCenter.add(buttonOnSideTop(octavePlusOne), c);
-		panelCenter.add(buttonOnSideTop(keyPlusOne), c);
-		panelCenter.add(buttonUpsideDown(instrument, 300, 100), c);
-		panelCenter.add(buttonUpsideDown(pitchBend, 300, 100), c);
-		panelCenter.add(buttonUpsideDown(otherControls, 500, 100), c);
-		panelCenter.add(buttonOnSideTop(octaveMinusOne), c);
-		panelCenter.add(buttonOnSideTop(keyMinusOne), c);
-	    
-		c.fill = GridBagConstraints.LINE_START;
-		panelCenter.add(buttonOnSideBottom(octaveMinusOne));
-		panelCenter.add(buttonOnSideBottom(keyMinusOne));
-		panelCenter.add(buttonNormal(instrument,  300, 100));
-		panelCenter.add(buttonNormal(pitchBend, 300, 100));
-		panelCenter.add(buttonNormal(otherControls, 300, 100));
-		panelCenter.add(buttonOnSideBottom(octavePlusOne));
-		panelCenter.add(buttonOnSideBottom(keyPlusOne));
-		return panelCenter;
+		panelCenter.setPreferredSize(new Dimension(width, height));
+		
+		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
+		panelCenter.add(buttonOnSideTop(octavePlusOne));
+		panelCenter.add(buttonOnSideTop(keyPlusOne));
+		panelCenter.add(buttonUpsideDown(instrument, 300, 100));
+		panelCenter.add(buttonUpsideDown(pitchBend, 300, 100));
+		panelCenter.add(buttonUpsideDown(otherControls, 500, 100));
+		panelCenter.add(buttonOnSideTop(octaveMinusOne));
+		panelCenter.add(buttonOnSideTop(keyMinusOne));
+		
+		panelCenter.add(buttonOnSideBottom(octavePlusOne2));
+		panelCenter.add(buttonOnSideBottom(keyPlusOne2));
+		panelCenter.add(buttonNormal(instrument2, 300, 100));
+		panelCenter.add(buttonNormal(pitchBend2, 300, 100));
+		panelCenter.add(buttonNormal(otherControls2, 500, 100));
+		panelCenter.add(buttonOnSideBottom(octaveMinusOne2));
+		panelCenter.add(buttonOnSideBottom(keyMinusOne2));
+	    return panelCenter;
 	}
-	
+
 	/**
 	 * Generates KeyButtons.
 	 * @param panel
@@ -114,7 +123,6 @@ public class GUI extends JFrame{
 			}else{				
 				button = new KeyButton(KeyNames.getName(i));
 			}
-			button.setPreferredSize(new Dimension(50, HEIGHT));
 			if(button.getText()!=null && button.getText().endsWith("#")){
 				button.setBackground(new Color(176,176,176));
 			}else{
@@ -129,42 +137,40 @@ public class GUI extends JFrame{
 	public JButton buttonUpsideDown (JButton b, int width, int height){		
 		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 1.0));
-		b.setBackground(new Color(173,216,230));
-		b.setHorizontalAlignment(SwingConstants.CENTER);
+		b.setAlignmentX(LEFT_ALIGNMENT);
+//		b.setHorizontalAlignment(SwingConstants.CENTER);
 		return b;
 	}
 	
 	public JButton buttonNormal(JButton b, int width, int height){		
 		b.setPreferredSize(new Dimension(width, height));
-		b.setBackground(new Color(173,216,230));
 		return b;
 	}
 	
-	public JButton buttonOnSideTop(JButton b){		
-		b.setPreferredSize(new Dimension(50, 100));
+	public JButton buttonOnSideTop(JButton b){
+		b.setPreferredSize(new Dimension(65, 100));
 		b.setFont(rotatedFont(b, 0.50));
-		b.setBackground(new Color(173,216,230));
-		b.setHorizontalAlignment(SwingConstants.CENTER);
+//		b.setHorizontalAlignment(SwingConstants.LEFT);
 		return b;
 	}
 	
-	public JButton buttonOnSideBottom(JButton b){		
-		b.setPreferredSize(new Dimension(50, 100));
+	public JButton buttonOnSideBottom(JButton b){
+		b.setPreferredSize(new Dimension(65, 100));
 		b.setFont(rotatedFont(b, 1.50));
-		b.setBackground(new Color(173,216,230));
-		b.setHorizontalAlignment(SwingConstants.CENTER);
+		b.setHorizontalAlignment(SwingConstants.LEFT);
 		return b;
 	}
 	
 	/**
 	 * Rotates the Text of a Button.
-	 * @param button A JButton, d value for degree (1.0 -> 90°, 0.50 -> 45°
+	 * @param button A JButton,
+	 * @param d value for degree (1.0 -> 90°, 0.50 -> 45°
 	 * @return Font A new font, rotated(90 degrees)
 	 */
 	public Font rotatedFont(JButton button, double d){
 		double theta = (d) * Math.PI;
 		AffineTransform rotate = java.awt.geom.AffineTransform.getRotateInstance(theta);
-		button.setHorizontalAlignment(SwingConstants.CENTER);
+//		button.setHorizontalAlignment(SwingConstants.CENTER);
 		return button.getFont().deriveFont(rotate);
 	}
 	
