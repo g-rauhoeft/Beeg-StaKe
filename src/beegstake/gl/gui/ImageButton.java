@@ -10,13 +10,14 @@ import beegstake.gl.gui.util.ResourceManager;
 
 public class ImageButton extends RectComponent {
 	private Texture texture;
-	public ImageButton(Point position, int width, int height, String path) {
+
+	public ImageButton(Point position, int width, int height) {
 		super(position, width, height);
-		this.texture = ResourceManager.getTexture(path);
 	}
 	
 	public ImageButton(Point position, String path){
-		this(position, 0, 0, path);
+		this(position, 0, 0);
+		this.texture = ResourceManager.getTexture(path);
 		this.width = texture.getTextureWidth();
 		this.height = texture.getTextureHeight();
 	}

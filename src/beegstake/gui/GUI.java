@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
@@ -27,9 +28,10 @@ public class GUI extends JFrame{
 	protected final int HEIGHT = 200;
 	private GridLayout layoutTop = new GridLayout(1, 1);
 	private GridLayout layoutBottom = new GridLayout(1, 1);
-	private GridLayout layoutCenter = new GridLayout(1, 1);
-	
-	private JButton octavePlusOne = new JButton("Octave +1");
+	private GridBagLayout layoutCenter = new GridBagLayout();
+	GridBagConstraints c = new GridBagConstraints();
+
+    private JButton octavePlusOne = new JButton("Octave +1");
 	private JButton keyPlusOne = new JButton("Key +1");	
 	private JButton octaveMinusOne = new JButton("Octave -1");
 	private JButton keyMinusOne = new JButton("Key -1");
@@ -68,8 +70,7 @@ public class GUI extends JFrame{
 		for (JButton b: generateButtons2){
 			panelBottom.add(b);
 		}
-		
-		
+			
 		con.add(panelTop, BorderLayout.NORTH);
 		con.add(controlArea(), BorderLayout.CENTER);
 		con.add(panelBottom, BorderLayout.SOUTH);
@@ -78,21 +79,24 @@ public class GUI extends JFrame{
 	public JPanel controlArea(){
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(PANEL_WIDTH, HEIGHT));
-		panelCenter.add(buttonOnSideTop(octavePlusOne));
-		panelCenter.add(buttonOnSideTop(keyPlusOne));
-		panelCenter.add(buttonUpsideDown(instrument, 300, 100));
-		panelCenter.add(buttonUpsideDown(pitchBend, 300, 100));
-		panelCenter.add(buttonUpsideDown(otherControls, 500, 100));
-		panelCenter.add(buttonOnSideTop(octaveMinusOne));
-		panelCenter.add(buttonOnSideTop(keyMinusOne));
-		
-//		panelCenter.add(buttonOnSideBottom(octaveMinusOne));
-//		panelCenter.add(buttonOnSideBottom(keyMinusOne));
-//		panelCenter.add(buttonNormal(instrument,  50, 100));
-//		panelCenter.add(buttonNormal(pitchBend, 50, 100));
-//		panelCenter.add(buttonNormal(otherControls, 100, 100));
-//		panelCenter.add(buttonOnSideBottom(octavePlusOne));
-//		panelCenter.add(buttonOnSideBottom(keyPlusOne));
+	    c.fill = GridBagConstraints.FIRST_LINE_START;
+
+		panelCenter.add(buttonOnSideTop(octavePlusOne), c);
+		panelCenter.add(buttonOnSideTop(keyPlusOne), c);
+		panelCenter.add(buttonUpsideDown(instrument, 300, 100), c);
+		panelCenter.add(buttonUpsideDown(pitchBend, 300, 100), c);
+		panelCenter.add(buttonUpsideDown(otherControls, 500, 100), c);
+		panelCenter.add(buttonOnSideTop(octaveMinusOne), c);
+		panelCenter.add(buttonOnSideTop(keyMinusOne), c);
+	    
+		c.fill = GridBagConstraints.LINE_START;
+		panelCenter.add(buttonOnSideBottom(octaveMinusOne));
+		panelCenter.add(buttonOnSideBottom(keyMinusOne));
+		panelCenter.add(buttonNormal(instrument,  300, 100));
+		panelCenter.add(buttonNormal(pitchBend, 300, 100));
+		panelCenter.add(buttonNormal(otherControls, 300, 100));
+		panelCenter.add(buttonOnSideBottom(octavePlusOne));
+		panelCenter.add(buttonOnSideBottom(keyPlusOne));
 		return panelCenter;
 	}
 	
@@ -126,6 +130,7 @@ public class GUI extends JFrame{
 		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 1.0));
 		b.setBackground(new Color(173,216,230));
+		b.setHorizontalAlignment(SwingConstants.CENTER);
 		return b;
 	}
 	
@@ -139,13 +144,15 @@ public class GUI extends JFrame{
 		b.setPreferredSize(new Dimension(50, 100));
 		b.setFont(rotatedFont(b, 0.50));
 		b.setBackground(new Color(173,216,230));
+		b.setHorizontalAlignment(SwingConstants.CENTER);
 		return b;
 	}
 	
 	public JButton buttonOnSideBottom(JButton b){		
 		b.setPreferredSize(new Dimension(50, 100));
-		b.setFont(rotatedFont(b, 0.50));
+		b.setFont(rotatedFont(b, 1.50));
 		b.setBackground(new Color(173,216,230));
+		b.setHorizontalAlignment(SwingConstants.CENTER);
 		return b;
 	}
 	

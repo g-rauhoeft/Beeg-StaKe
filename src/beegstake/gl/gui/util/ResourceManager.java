@@ -13,9 +13,15 @@ public class ResourceManager {
 
 	public static Texture getTexture(String path) {
 		if (!textures.containsKey(path)) {
+			Texture texture;
 			try {
-				Texture texture = TextureLoader.getTexture("PNG",
-						ResourceLoader.getResourceAsStream(path));
+				if(path.endsWith(".png")){
+					texture = TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path));
+				}else{
+					texture = TextureLoader.getTexture("JPG",
+							ResourceLoader.getResourceAsStream(path));
+				}
 				textures.put(path, texture);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());

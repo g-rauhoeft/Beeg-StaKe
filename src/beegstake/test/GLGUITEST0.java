@@ -18,7 +18,7 @@ public class GLGUITEST0 {
 	public void start() {
 		try {
 			Display.setDisplayMode(DisplayUtilities.getMaxDisplayMode());
-			Display.setFullscreen(true);
+			Display.setFullscreen(false);
 			Display.create();
 		} catch (Exception e) {
 			System.exit(0);
