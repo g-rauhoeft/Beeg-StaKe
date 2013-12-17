@@ -1,7 +1,6 @@
 package beegstake.gl.gui;
 import java.awt.Font;
 
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -29,7 +28,8 @@ public class KeyButton extends ImageButton implements ICursorListener {
 	@Override
 	public void render() {
 		super.render();
-		typeFont.drawString(this.textPos.getX(), this.textPos.getY(), getButtonText(), new Color(20, 40, 50));
+		typeFont.drawString(this.textPos.getX(), this.textPos.getY(), getButtonText(), new Color(0,0,255));
+		Color.white.bind();
 	}
 	
 	@Override

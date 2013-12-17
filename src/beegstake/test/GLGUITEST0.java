@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import beegstake.audio.SoundEngine;
+import beegstake.gl.gui.BeegStakeGUI;
 import beegstake.gl.gui.BumpButton;
 import beegstake.gl.gui.CursorEvent;
 import beegstake.gl.gui.GUI;
@@ -68,7 +69,7 @@ public class GLGUITEST0 {
 				
 			}
 		});
-		BumpButton imgButton2 = new BumpButton(new Point(750, 250),"rsc/img/test_button_normal.png", "rsc/img/test_button_diffuse.png");
+		BumpButton imgButton2 = new BumpButton(new Point(750, 250),200,200,"rsc/img/test_button_normal.png", "rsc/img/test_button_diffuse.png");
 		imgButton2.add(new ICursorListener(){
 			@Override
 			public void cursorOver(CursorEvent event) {
@@ -96,6 +97,7 @@ public class GLGUITEST0 {
 	}
 
 	public static void main(String[] args) {
-		new GLGUITEST0().start();
+		//new GLGUITEST0().start();
+		new BeegStakeGUI("Beeg Stake").start();
 	}
 }

@@ -57,4 +57,8 @@ public class SoundEngine implements ISoundEngine {
 	public final ArrayList<Instrument> getAvailableInstruments() {
 		return instruments;
 	}
+	
+	public void close(){
+		this.synthesizer.close();
+	}
 }
