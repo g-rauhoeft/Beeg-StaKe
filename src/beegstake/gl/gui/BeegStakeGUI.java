@@ -12,6 +12,11 @@ import beegstake.system.Configuration;
 
 
 public class BeegStakeGUI extends GUI {
+	private static int panelSize  = Display.getHeight()/3;
+	protected final static int SART_POS_TOP = Display.getY();
+	protected final static int SART_POS_CENTER_1 = getPanelSize();
+	protected final static int SART_POS_CENER_2 = getPanelSize()/2;
+	protected final static int SART_POS_END = Display.getHeight()-getPanelSize();
 	
 	public BeegStakeGUI(String name){
 		super();
@@ -44,10 +49,10 @@ public class BeegStakeGUI extends GUI {
 		KeyButton button;
 		for (int i=0; i<20; i++){
 			if(top){				
-				button = new KeyButton(new Point(0+i*60, Display.getY()),152,302, KeyNames.getNameRevert(i));
+				button = new KeyButton(new Point(0+i*60, this.SART_POS_TOP),90,253, KeyNames.getNameRevert(i));
 			}else{
 				//Position ergbt sich durch Displayhöhe abzüglich der Button höhe
-				button = new KeyButton(new Point(0+i*60, Display.getHeight()-302),152,302, KeyNames.getName(i));
+				button = new KeyButton(new Point(0+i*60, this.SART_POS_END),90,253, KeyNames.getName(i));
 			}
 			
 			if(button.getButtonText().endsWith("#")){
@@ -70,5 +75,9 @@ public class BeegStakeGUI extends GUI {
 		for (KeyButton b: generateButtonsBottom){
 			this.add(b);
 		}
+	}
+	
+	public static int getPanelSize() {
+		return panelSize;
 	}
 }
