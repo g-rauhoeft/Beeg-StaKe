@@ -2,7 +2,6 @@ package beegstake.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -11,14 +10,13 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import beegstake.audio.Instrument;
@@ -37,8 +35,7 @@ public class GUI extends JFrame{
 	private ControlButton keyPlusOne = new ControlButton("Key +1", color);	
 	private ControlButton octaveMinusOne = new ControlButton("Octave -1", color);
 	private ControlButton keyMinusOne = new ControlButton("Key -1", color);
-
-	
+	private ControlButton instrument = new ControlButton("Instrument", color);
 	private ControlButton pitchBend = new ControlButton("Pitch Blend", color);
 	private ControlButton otherControls = new ControlButton("Other Controls", color);
 	
@@ -56,7 +53,7 @@ public class GUI extends JFrame{
 	 */
 	public GUI(String name){
 		super(name);
-		DisplayMode test = new DisplayMode(1280, 768, 5, 3);
+		DisplayMode test = new DisplayMode(1280, 600, 5, 3);
 		this.setMinimumSize(new Dimension(test.getWidth(),test.getHeight()));//1280 x 1024 ist max fÃ¼r Tisch!!
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
@@ -67,13 +64,16 @@ public class GUI extends JFrame{
 		Configuration.load("cfg/system.json");
 		SoundEngine soundEng = new SoundEngine();
 		ArrayList<Instrument> availableInstruments = soundEng.getAvailableInstruments();
+		
+		ButtonGroup group = new ButtonGroup();
 		JRadioButton radioBu;
 		for(int i=0; i<5;i++){
 			String name = availableInstruments.get(i).getInformation().getName();
 			radioBu = new JRadioButton(name);
 			radioBu.setPreferredSize(new Dimension(getWidth()*5/100, 25));
 			radioBu.setHorizontalAlignment(SwingConstants.CENTER);
-			radioButtons.add(radioBu);
+			group.add(radioBu);
+			radioButtons.add(radioBu);	
 		}
 		return radioButtons;
 	}
@@ -121,27 +121,37 @@ public class GUI extends JFrame{
 		panelCenter.add(buttonOnSideTop(octavePlusOne, width*7/100, 100 ));
 		panelCenter.add(buttonOnSideTop(keyPlusOne, getWidth()*7/100, 100));
 		
+		JPanel radioPanel = new JPanel();
+		panelCenter.add(radioPanel);
+		radioPanel.setLayout(new FlowLayout());
 		for(JRadioButton bu : generateRadioButtons()){
-			rotatedFont(bu, 1.0);
-			panelCenter.add(bu);
+			rotatedFont(bu, 0.5);
+			radioPanel.add(bu);
 		}
+		//Hier wird ein Button erwartet, aber ein Panel wird übergeben, da mehrere RadioButtons
+		//panelCenter.add(buttonOnSideTop(radioPanel, width*2/10, 100));
+		//panelCenter.add(buttonOnSideTop(instrument, width*2/10, 100));
 		
+		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
 		panelCenter.add(buttonUpsideDown(pitchBend, getWidth()*2/10, 100));
 		panelCenter.add(buttonUpsideDown(otherControls, getWidth()*28/100, 100));
 		panelCenter.add(buttonOnSideTop(octaveMinusOne, getWidth()*7/100, 100));
 		panelCenter.add(buttonOnSideTop(keyMinusOne, getWidth()*7/100, 100));
-
 		panelCenter.add(buttonOnSideBottom(octavePlusOne2, getWidth()*7/100, 100));
 		panelCenter.add(buttonOnSideBottom(keyPlusOne2, getWidth()*7/100, 100));
 		
-		for(JRadioButton bu : generateRadioButtons()){			
-			panelCenter.add(bu);
+		JPanel radioPanel1 = new JPanel();
+		panelCenter.add(radioPanel1);
+		radioPanel1.setLayout(new FlowLayout());
+		for(JRadioButton bu : generateRadioButtons()){
+			rotatedFont(bu, 0.5);
+			radioPanel1.add(bu);
 		}
+		
 		panelCenter.add(buttonNormal(pitchBend2, getWidth()*2/10, 100));
 		panelCenter.add(buttonNormal(otherControls2, getWidth()*28/100, 100));
 		panelCenter.add(buttonOnSideBottom(octaveMinusOne2, getWidth()*7/100, 100));
 		panelCenter.add(buttonOnSideBottom(keyMinusOne2, getWidth()*7/100, 100));
-	    
 		return panelCenter;
 	}
 
