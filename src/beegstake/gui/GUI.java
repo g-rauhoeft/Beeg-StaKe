@@ -45,7 +45,7 @@ public class GUI extends JFrame{
 	 */
 	public GUI(String name){
 		super(name);
-		this.setMinimumSize(new Dimension(1366,768));
+		this.setMinimumSize(new Dimension(1280,1024));//1280 x 1024 ist max fÃ¼r Tisch!!
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
 	}
@@ -89,24 +89,26 @@ public class GUI extends JFrame{
 		int height= this.getHeight()/3+28;
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(width, height));
-		
+
 		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
-		panelCenter.add(buttonOnSideTop(octavePlusOne));
-		panelCenter.add(buttonOnSideTop(keyPlusOne));
-		panelCenter.add(buttonUpsideDown(instrument, 300, 100));
-		panelCenter.add(buttonUpsideDown(pitchBend, 300, 100));
-		panelCenter.add(buttonUpsideDown(otherControls, 500, 100));
-		panelCenter.add(buttonOnSideTop(octaveMinusOne));
-		panelCenter.add(buttonOnSideTop(keyMinusOne));
-		
-		panelCenter.add(buttonOnSideBottom(octavePlusOne2));
-		panelCenter.add(buttonOnSideBottom(keyPlusOne2));
-		panelCenter.add(buttonNormal(instrument2, 300, 100));
-		panelCenter.add(buttonNormal(pitchBend2, 300, 100));
-		panelCenter.add(buttonNormal(otherControls2, 500, 100));
-		panelCenter.add(buttonOnSideBottom(octaveMinusOne2));
-		panelCenter.add(buttonOnSideBottom(keyMinusOne2));
-	    return panelCenter;
+
+		panelCenter.add(buttonOnSideTop(octavePlusOne, getWidth()*7/100, 100 ));
+		panelCenter.add(buttonOnSideTop(keyPlusOne, getWidth()*7/100, 100));
+		panelCenter.add(buttonUpsideDown(instrument, getWidth()*2/10, 100));
+		panelCenter.add(buttonUpsideDown(pitchBend, getWidth()*2/10, 100));
+		panelCenter.add(buttonUpsideDown(otherControls, getWidth()*28/100, 100));
+		panelCenter.add(buttonOnSideTop(octaveMinusOne, getWidth()*7/100, 100));
+		panelCenter.add(buttonOnSideTop(keyMinusOne, getWidth()*7/100, 100));
+
+		panelCenter.add(buttonOnSideBottom(octavePlusOne2, getWidth()*7/100, 100));
+		panelCenter.add(buttonOnSideBottom(keyPlusOne2, getWidth()*7/100, 100));
+		panelCenter.add(buttonNormal(instrument2, getWidth()*2/10, 100));
+		panelCenter.add(buttonNormal(pitchBend2, getWidth()*2/10, 100));
+		panelCenter.add(buttonNormal(otherControls2, getWidth()*28/100, 100));
+		panelCenter.add(buttonOnSideBottom(octaveMinusOne2, getWidth()*7/100, 100));
+		panelCenter.add(buttonOnSideBottom(keyMinusOne2, getWidth()*7/100, 100));
+	    
+		return panelCenter;
 	}
 
 	/**
@@ -147,15 +149,15 @@ public class GUI extends JFrame{
 		return b;
 	}
 	
-	public JButton buttonOnSideTop(JButton b){
-		b.setPreferredSize(new Dimension(65, 100));
+	public JButton buttonOnSideTop(JButton b, int width, int height){
+		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 0.50));
 //		b.setHorizontalAlignment(SwingConstants.LEFT);
 		return b;
 	}
 	
-	public JButton buttonOnSideBottom(JButton b){
-		b.setPreferredSize(new Dimension(65, 100));
+	public JButton buttonOnSideBottom(JButton b, int width, int height){
+		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 1.50));
 		b.setHorizontalAlignment(SwingConstants.LEFT);
 		return b;
@@ -164,7 +166,7 @@ public class GUI extends JFrame{
 	/**
 	 * Rotates the Text of a Button.
 	 * @param button A JButton,
-	 * @param d value for degree (1.0 -> 90°, 0.50 -> 45°
+	 * @param d value for degree (1.0 -> 90ï¿½, 0.50 -> 45ï¿½
 	 * @return Font A new font, rotated(90 degrees)
 	 */
 	public Font rotatedFont(JButton button, double d){
