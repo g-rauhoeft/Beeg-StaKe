@@ -102,7 +102,7 @@ public class TouchHandler implements TuioListener {
 
 		cursorList.remove(tcur.getSessionID());
 		//TODO: event werfen
-		
+		MouseSimulator.mouseReleased(tcur.getScreenX(width), tcur.getScreenY(height), tcur.getCursorID(), container);
 
 		if (verbose) {
 			System.out.println("del cur " + tcur.getCursorID() + " (" + tcur.getSessionID() + ")");

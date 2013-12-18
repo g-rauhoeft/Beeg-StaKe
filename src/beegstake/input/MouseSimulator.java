@@ -88,18 +88,20 @@ public class MouseSimulator {
 	private static IActionHandler released = new IActionHandler() {
 		@Override
 		public void performAction(int x, int y, int id, Component component) {
-			for (Component pressedComponent : pressedMap.get(id)) {
-				Point p = getRelativeCoordinates(x, y, component,
-						pressedComponent);
-				int localX = p.x, localY = p.y;
-				for (MouseListener listener : pressedComponent
-						.getMouseListeners()) {
-					listener.mouseReleased(new MouseEvent(component,
-							MouseEvent.MOUSE_RELEASED, 1l, 0, localX, localY,
-							1, false));
+			if(pressedMap.get(id)!=null){
+				for (Component pressedComponent : pressedMap.get(id)) {
+					Point p = getRelativeCoordinates(x, y, component,
+							pressedComponent);
+					int localX = p.x, localY = p.y;
+					for (MouseListener listener : pressedComponent
+							.getMouseListeners()) {
+						listener.mouseReleased(new MouseEvent(component,
+								MouseEvent.MOUSE_RELEASED, 1l, 0, localX, localY,
+								1, false));
+					}
 				}
+				pressedMap.remove(id);
 			}
-			pressedMap.remove(id);
 		}
 	};
 
