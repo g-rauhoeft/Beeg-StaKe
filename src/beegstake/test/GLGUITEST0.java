@@ -97,7 +97,7 @@ public class GLGUITEST0 {
 	}
 
 	public static void main(String[] args) {
-		//new GLGUITEST0().start();
-		new BeegStakeGUI("Beeg Stake").start();
+		new GLGUITEST0().start();
+		//new BeegStakeGUI("Beeg Stake").start();
 	}
 }

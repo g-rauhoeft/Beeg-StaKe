@@ -5,14 +5,13 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 
 import beegstake.gl.gui.util.Point;
-import beegstake.gl.gui.util.TextPosition;
 
 public class KeyButton extends ImageButton implements ICursorListener {
 
 	private String buttonText;
 	private Font font;
 	private TrueTypeFont typeFont;
-	private TextPosition textPos;
+	private Point textPos;
 	public KeyButton(Point position, int width, int height, String text){
 		super(position, width, height);
 		setButtonText(text);
@@ -22,7 +21,9 @@ public class KeyButton extends ImageButton implements ICursorListener {
 	}
 	
 	public void setTextToButton(){
-		this.textPos= new TextPosition(this.getWidth()/2+getPosition().getX(), this.getHeight()/2+getPosition().getY());
+		System.out.println(typeFont.getWidth(buttonText)+" "+this.getWidth());
+		this.textPos= new Point(getPosition().getX()+this.getWidth()/2-typeFont.getWidth(buttonText), (this.getHeight()-typeFont.getLineHeight())/2+getPosition().getY());
+		System.out.println(textPos);
 	}
 
 	@Override

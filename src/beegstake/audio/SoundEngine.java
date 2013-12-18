@@ -18,6 +18,7 @@ import com.sun.media.sound.SF2Soundbank;
 public class SoundEngine implements ISoundEngine {
 	private AudioSynthesizer synthesizer;
 	private ArrayList<Instrument> instruments;
+	public static final int KEYS_PER_OCTAVE = 12;
 
 	public SoundEngine() {
 		this.instruments = new ArrayList<Instrument>();
