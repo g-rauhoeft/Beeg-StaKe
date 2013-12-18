@@ -2,32 +2,43 @@ package beegstake.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import beegstake.audio.Instrument;
+import beegstake.audio.SoundEngine;
 import beegstake.musictheory.KeyNames;
+import beegstake.system.Configuration;
 
 public class GUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private GridLayout layoutTop = new GridLayout(1, 1);
 	private GridLayout layoutBottom = new GridLayout(1, 1);
 	private FlowLayout layoutCenter = new FlowLayout(0,0,0);
- 
+	
 	private Color color = new Color(173,216,230);
     private ControlButton octavePlusOne = new ControlButton("Octave +1", color);
 	private ControlButton keyPlusOne = new ControlButton("Key +1", color);	
 	private ControlButton octaveMinusOne = new ControlButton("Octave -1", color);
 	private ControlButton keyMinusOne = new ControlButton("Key -1", color);
-	private ControlButton instrument = new ControlButton("Instrument", color);
+
+	
 	private ControlButton pitchBend = new ControlButton("Pitch Blend", color);
 	private ControlButton otherControls = new ControlButton("Other Controls", color);
 	
@@ -45,11 +56,27 @@ public class GUI extends JFrame{
 	 */
 	public GUI(String name){
 		super(name);
-		this.setMinimumSize(new Dimension(1280,1024));//1280 x 1024 ist max für Tisch!!
+		DisplayMode test = new DisplayMode(1280, 768, 5, 3);
+		this.setMinimumSize(new Dimension(test.getWidth(),test.getHeight()));//1280 x 1024 ist max fÃ¼r Tisch!!
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
 	}
 	
+	public ArrayList<JRadioButton> generateRadioButtons(){
+		ArrayList<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
+		Configuration.load("cfg/system.json");
+		SoundEngine soundEng = new SoundEngine();
+		ArrayList<Instrument> availableInstruments = soundEng.getAvailableInstruments();
+		JRadioButton radioBu;
+		for(int i=0; i<5;i++){
+			String name = availableInstruments.get(i).getInformation().getName();
+			radioBu = new JRadioButton(name);
+			radioBu.setPreferredSize(new Dimension(getWidth()*5/100, 25));
+			radioBu.setHorizontalAlignment(SwingConstants.CENTER);
+			radioButtons.add(radioBu);
+		}
+		return radioButtons;
+	}
 	
 	/**
 	 * The basement of the Frame. It contains three GridLayouts.
@@ -62,7 +89,7 @@ public class GUI extends JFrame{
 		panelTop.setPreferredSize(new Dimension(width, height));
 		panelTop.setName("top");
 		ArrayList<KeyButton> generateButtons = generateKeyButtons(panelTop);
-		for (JButton b: generateButtons){
+		for (KeyButton b: generateButtons){
 			b.setFont(rotatedFont(b, 1.0));
 			panelTop.add(b);
 		}			
@@ -71,7 +98,7 @@ public class GUI extends JFrame{
 		panelBottom.setPreferredSize(new Dimension(width, height));
 		panelBottom.setName("bottom");
 		ArrayList<KeyButton> generateButtons2 = generateKeyButtons(panelBottom);
-		for (JButton b: generateButtons2){
+		for (KeyButton b: generateButtons2){
 			panelBottom.add(b);
 		}
 			
@@ -91,10 +118,14 @@ public class GUI extends JFrame{
 		panelCenter.setPreferredSize(new Dimension(width, height));
 
 		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
-
-		panelCenter.add(buttonOnSideTop(octavePlusOne, getWidth()*7/100, 100 ));
+		panelCenter.add(buttonOnSideTop(octavePlusOne, width*7/100, 100 ));
 		panelCenter.add(buttonOnSideTop(keyPlusOne, getWidth()*7/100, 100));
-		panelCenter.add(buttonUpsideDown(instrument, getWidth()*2/10, 100));
+		
+		for(JRadioButton bu : generateRadioButtons()){
+			rotatedFont(bu, 1.0);
+			panelCenter.add(bu);
+		}
+		
 		panelCenter.add(buttonUpsideDown(pitchBend, getWidth()*2/10, 100));
 		panelCenter.add(buttonUpsideDown(otherControls, getWidth()*28/100, 100));
 		panelCenter.add(buttonOnSideTop(octaveMinusOne, getWidth()*7/100, 100));
@@ -102,7 +133,10 @@ public class GUI extends JFrame{
 
 		panelCenter.add(buttonOnSideBottom(octavePlusOne2, getWidth()*7/100, 100));
 		panelCenter.add(buttonOnSideBottom(keyPlusOne2, getWidth()*7/100, 100));
-		panelCenter.add(buttonNormal(instrument2, getWidth()*2/10, 100));
+		
+		for(JRadioButton bu : generateRadioButtons()){			
+			panelCenter.add(bu);
+		}
 		panelCenter.add(buttonNormal(pitchBend2, getWidth()*2/10, 100));
 		panelCenter.add(buttonNormal(otherControls2, getWidth()*28/100, 100));
 		panelCenter.add(buttonOnSideBottom(octaveMinusOne2, getWidth()*7/100, 100));
@@ -136,6 +170,7 @@ public class GUI extends JFrame{
 		return buttons;
 	}
 	
+
 	public JButton buttonUpsideDown (JButton b, int width, int height){		
 		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 1.0));
@@ -159,20 +194,32 @@ public class GUI extends JFrame{
 	public JButton buttonOnSideBottom(JButton b, int width, int height){
 		b.setPreferredSize(new Dimension(width, height));
 		b.setFont(rotatedFont(b, 1.50));
-		b.setHorizontalAlignment(SwingConstants.LEFT);
+//		b.setHorizontalAlignment(SwingConstants.LEFT);
 		return b;
 	}
 	
 	/**
 	 * Rotates the Text of a Button.
 	 * @param button A JButton,
-	 * @param d value for degree (1.0 -> 90�, 0.50 -> 45�
+	 * @param d value for degree (1.0 -> 90ï¿½, 0.50 -> 45ï¿½
 	 * @return Font A new font, rotated(90 degrees)
 	 */
 	public Font rotatedFont(JButton button, double d){
 		double theta = (d) * Math.PI;
 		AffineTransform rotate = java.awt.geom.AffineTransform.getRotateInstance(theta);
-//		button.setHorizontalAlignment(SwingConstants.CENTER);
+		return button.getFont().deriveFont(rotate);
+	}
+	
+	
+	/**
+	 * Rotates the Text of a Button.
+	 * @param button A JButton,
+	 * @param d value for degree (1.0 -> 90ï¿½, 0.50 -> 45ï¿½
+	 * @return Font A new font, rotated(90 degrees)
+	 */
+	public Font rotatedFont(JRadioButton button, double d){
+		double theta = (d) * Math.PI;
+		AffineTransform rotate = java.awt.geom.AffineTransform.getRotateInstance(theta);
 		return button.getFont().deriveFont(rotate);
 	}
 	
@@ -188,6 +235,9 @@ public class GUI extends JFrame{
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        System.out.println(frame.getHeight());
+        System.out.println(frame.getWidth());
+
     }
     
 	public static void main(String [] args){

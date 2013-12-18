@@ -21,8 +21,19 @@ public class ControlButton extends JButton implements MouseListener  {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent m) {
 		this.setBackground(new Color(224,255,255));
+		Object source = m.getSource();
+		if (source instanceof ControlButton){
+			ControlButton b = (ControlButton)source;
+			if(b.getText().equals("Octave +1")){
+				
+			}else if(b.getText().equals("Octave -1")){
+				
+			}
+			
+			
+		}
 	}
 
 	@Override
