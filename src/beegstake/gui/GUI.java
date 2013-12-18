@@ -45,7 +45,7 @@ public class GUI extends JFrame{
 	 */
 	public GUI(String name){
 		super(name);
-		this.setMinimumSize(new Dimension(1366,768));
+		this.setMinimumSize(new Dimension(1280,1024));
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
 	}
@@ -188,8 +188,8 @@ public class GUI extends JFrame{
         frame.setVisible(true);
     }
     
-	public static void main(String [] args){
-		createAndShowGUI();
-	}
+//	public static void main(String [] args){
+//		createAndShowGUI();
+//	}
 }
 

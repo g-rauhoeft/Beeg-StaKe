@@ -115,7 +115,7 @@ public class MouseSimulator {
 						// Exited
 						for (MouseListener listener : pressedComponent
 								.getMouseListeners()) {
-							listener.mouseExited(new MouseEvent(component,
+							listener.mouseExited(new MouseEvent(pressedComponent,
 									MouseEvent.MOUSE_EXITED, 1l, 0, p.x, p.y,
 									1, false));
 							componentsToRemove.add(pressedComponent);

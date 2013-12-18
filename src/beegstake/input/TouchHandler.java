@@ -1,19 +1,24 @@
 package beegstake.input;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import TUIO.TuioCursor;
+import TUIO.TuioListener;
+import TUIO.TuioObject;
+import TUIO.TuioPoint;
+import TUIO.TuioTime;
 //import swt.events.TouchEvent;
 
-
-import javax.swing.*;
-
-import beegstake.gui.ITouchInterface;
-import TUIO.*;
-
-public class TouchHandler extends JComponent implements TuioListener {
+public class TouchHandler implements TuioListener {
 
 	private static final long serialVersionUID = 1L;
-	private Hashtable<Long, TObject>	objectList					= new Hashtable<Long, TObject>();
 	private Hashtable<Long, TuioCursor>	cursorList					= new Hashtable<Long, TuioCursor>();
 
 	public static final int				finger_size					= 15;
@@ -23,25 +28,29 @@ public class TouchHandler extends JComponent implements TuioListener {
 	public static int					width, height;
 	private float						scale						= 1.0f;
 	public boolean						verbose						= false;
+	private Container	container;
 
 	private static final boolean		DEBUG_AND_EVALUATION_MODE	= true;
 	private static final boolean		DEBUG_WITH_SYSO				= true;
 
-	private ITouchInterface				touchInterface;
-	
 	//	 private TouchPoint _touchPoint;
 	 
 	//	 private Touch touch;
 
-	//TODO: TUIO event erzeugen aus den bewegungen, daraus ein mouseevent emulieren
+	//TODO: TUIO event erzeugen, was aus Bewegungen einzelne MouseEvents erzeugt/emuliert
 	//TODO: Im Internet nach: MouseEvent awt/swing inject oder emulieren  suchen
+	
+	public TouchHandler(Container container, int width, int height){
+		this.container = container;
+		this.width = width;
+		this.height = height;
+	}
 	
 	public void setSize(int w, int h) {
 		if (DEBUG_WITH_SYSO) {
 			System.out.println("public void setSize(int w, int h) ");
 		}
 
-		super.setSize(w, h);
 		width = w;
 		height = h;
 		scale = height / (float) TouchHandler.table_size;
@@ -55,7 +64,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 
 		if (!cursorList.containsKey(tcur.getSessionID())) {
 			cursorList.put(tcur.getSessionID(), tcur);
-			repaint();
 		}
 
 		if (verbose) {
@@ -71,7 +79,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 		}
 
 		TObject demo = new TObject(tobj);
-		objectList.put(tobj.getSessionID(), demo);
 
 		if (verbose) {
 			System.out.println("add obj " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " "
@@ -85,7 +92,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 			System.out.println("public void refresh(TuioTime frameTime)");
 		}
 
-		repaint();
 	}
 
 	@Override
@@ -95,8 +101,8 @@ public class TouchHandler extends JComponent implements TuioListener {
 		}
 
 		cursorList.remove(tcur.getSessionID());
-		//event werfen
-		repaint();
+		//TODO: event werfen
+		
 
 		if (verbose) {
 			System.out.println("del cur " + tcur.getCursorID() + " (" + tcur.getSessionID() + ")");
@@ -109,7 +115,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 			System.out.println("public void removeTuioObject(TuioObject tobj)");
 		}
 
-		objectList.remove(tobj.getSessionID());
 
 		if (verbose) {
 			System.out.println("del obj " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ")");
@@ -123,8 +128,7 @@ public class TouchHandler extends JComponent implements TuioListener {
 			System.out.println("public void updateTuioCursor(TuioCursor tcur)");
 		}
 
-		repaint();
-
+		MouseSimulator.mouseMoved(tcur.getScreenX(width), tcur.getScreenY(height), tcur.getCursorID(), container);
 		if (verbose) {
 			System.out.println("set cur " + tcur.getCursorID() + " ("
 					+ tcur.getSessionID() + ") " + tcur.getX() + " "
@@ -139,8 +143,6 @@ public class TouchHandler extends JComponent implements TuioListener {
 			System.out.println("public void updateTuioCursor(TuioCursor tcur)");
 		}
 
-		TObject demo = (TObject) objectList.get(tobj.getSessionID());
-		demo.update(tobj);
 
 		if (verbose) {
 			System.out.println("set obj " + tobj.getSymbolID() + " (" + tobj.getSessionID() + ") " + tobj.getX() + " "
@@ -195,6 +197,14 @@ public class TouchHandler extends JComponent implements TuioListener {
 			fingerObject2D.fillOval(current_point.getScreenX(w - s / 2), current_point.getScreenY(h - s / 2), s, s);
 			fingerObject2D.setPaint(Color.black);
 
+			
+			
+			
+			
+//			mSimulator.mouseMoved(current_point.getScreenX(w), current_point.getScreenY(h), tcur.getCursorID(), container);
+			
+			
+			
 			if (DEBUG_AND_EVALUATION_MODE) {
 				fingerObject2D.drawString(tcur.getCursorID() + "   |    X: " + current_point.getScreenX(w) + "   Y: "
 						+ current_point.getScreenY(h), current_point.getScreenX(w), current_point.getScreenY(h));
@@ -204,13 +214,5 @@ public class TouchHandler extends JComponent implements TuioListener {
 			}
 		}
 
-		// draw the objects
-		Enumeration<TObject> objects = objectList.elements();
-		while (objects.hasMoreElements()) {
-			TObject tobj = objects.nextElement();
-			if (tobj != null) {
-				tobj.paint(fingerObject2D, width, height);
-			}
-		}
 	}
 }

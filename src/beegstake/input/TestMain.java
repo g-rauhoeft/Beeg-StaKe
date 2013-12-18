@@ -30,7 +30,7 @@ public class TestMain {
 	public TestMain() {
 		System.out.println("public TestMain()");
 
-		touchHander = new TouchHandler();
+		touchHander = null;//new TouchHandler();
 		device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		setupWindow();
 		showWindow();
@@ -49,7 +49,7 @@ public class TestMain {
 		System.out.println("public void setupWindow()");
 		
 		frame = new JFrame();
-		frame.add(touchHander);
+		//frame.add(touchHander);
 
 		frame.setTitle("TuioDemo - Modified by SMauser");
 		frame.setResizable(false);

@@ -10,7 +10,8 @@ import javax.swing.JButton;
 public class KeyButton extends JButton implements MouseListener {
 
 	ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
-
+	public float percentage = 100;
+		
 	public KeyButton(String name) {
 		super(name);
 		this.addMouseListener(this);
