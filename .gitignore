@@ -4,4 +4,5 @@
 *.war
 *.ear
 *.classpath
+/.settings
 /bin

@@ -40,6 +40,11 @@ public class GUI extends JFrame{
 	private GridLayout layoutBottom = new GridLayout(1, 1);
 	private FlowLayout layoutCenter = new FlowLayout(0,0,0);
 	
+	private ArrayList<KeyButton> keyButtons;
+	public ArrayList<KeyButton> getKeyButtons() {
+		return keyButtons;
+	}
+
 	private Color color = new Color(173,216,230);
     private ControlButton octavePlusOne = new ControlButton("Octave+1", color);
 	private ControlButton keyPlusOne = new ControlButton("Key+1", color);	
@@ -267,8 +272,8 @@ public class GUI extends JFrame{
 
     }
     
-	public static void main(String [] args){
-		createAndShowGUI();
-	}
+//	public static void main(String [] args){
+//		createAndShowGUI();
+//	}
 }
 
