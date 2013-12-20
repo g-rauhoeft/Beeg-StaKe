@@ -24,6 +24,8 @@ public class GUIIntegrationTest {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
+			// Only Test
+			
 		}
 
 		@Override
