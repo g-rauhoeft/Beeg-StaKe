@@ -29,7 +29,7 @@ import javax.swing.plaf.FontUIResource;
 import beegstake.audio.Instrument;
 import beegstake.audio.SoundEngine;
 import beegstake.gl.gui.util.ResourceManager;
-import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.musictheory.KeyNames;
 import beegstake.system.Configuration;
 
@@ -54,7 +54,7 @@ public class GUI extends JFrame{
 	private ControlButton keyMinusOne2 = new ControlButton("Key-1", color);
 	private ControlButton pitchBend2 = new ControlButton("Pitch Blend", color);
 	private ControlButton otherControls2 = new ControlButton("Other Controls", color);
-	private SoundEngineController soundEngineController;
+	private SoundEngineHelper soundEngineController;
 	
 	
 	/**
@@ -64,7 +64,7 @@ public class GUI extends JFrame{
 	public GUI(String name){
 		super(name);
 		Configuration.load("cfg/system.json");
-		this.soundEngineController = new SoundEngineController(3, 0, "Arabic");
+		//this.soundEngineController = new SoundEngineHelper(3, 0, "Arabic");
 		this.setMinimumSize(new Dimension(1280,768));//1280 x 1024 ist max für Tisch!!
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 

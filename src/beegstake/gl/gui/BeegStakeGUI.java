@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 import beegstake.gl.gui.util.DisplayUtilities;
 import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.ResourceManager;
-import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.musictheory.KeyNames;
 import beegstake.system.Configuration;
 
@@ -19,7 +19,7 @@ public class BeegStakeGUI extends GUI {
 	protected final static int START_POS_CENTER_2 = getPanelSize() / 2;
 	protected final static int START_POS_END = Display.getHeight()
 			- getPanelSize();
-	private SoundEngineController soundEngineController;
+	private SoundEngineHelper soundEngineController;
 
 	public BeegStakeGUI(String name) {
 		super();
@@ -35,7 +35,7 @@ public class BeegStakeGUI extends GUI {
 			System.exit(0);
 		}
 		Configuration.load("cfg/system.json");
-		this.soundEngineController = new SoundEngineController(3, 0, "Arabic");
+		//this.soundEngineController = new SoundEngineHelper(3, 0, "Arabic");
 
 		base();
 

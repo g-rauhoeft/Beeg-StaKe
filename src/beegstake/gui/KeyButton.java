@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
-import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.system.Configuration;
 
 public class KeyButton extends JButton implements MouseListener {
 
 	ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
 
-	private SoundEngineController soundEngineController = new SoundEngineController(3, 0, "Arabic");
+//	private SoundEngineHelper soundEngineController = new SoundEngineHelper(3, 0, "Arabic");
 	public KeyButton(String text) {
 		super(text);
 		this.addMouseListener(this);

@@ -8,12 +8,12 @@ import javax.swing.JRadioButton;
 
 import beegstake.audio.Instrument;
 import beegstake.audio.SoundEngine;
-import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.system.Configuration;
 
 public class RadioButton extends JRadioButton implements MouseListener {
 
-	private SoundEngineController soundEngineController;
+	private SoundEngineHelper soundEngineController;
 
 	public RadioButton(String text) {
 		super(text);
@@ -41,7 +41,7 @@ public class RadioButton extends JRadioButton implements MouseListener {
 //						i.deactivate();
 //					}
 //					if (bu.getText().equals(i.getInformation().getName())) {
-//						// Hier erhalten ide Tasten die Töne vom gewählten
+//						// Hier erhalten ide Tasten die Tï¿½ne vom gewï¿½hlten
 //						// Instrument
 //						i.activate();
 //					}
@@ -67,11 +67,11 @@ public class RadioButton extends JRadioButton implements MouseListener {
 
 	}
 
-	public SoundEngineController getSoundEngineController() {
+	public SoundEngineHelper getSoundEngineController() {
 		return soundEngineController;
 	}
 
-	public void setSoundEngineController(SoundEngineController soundEngineController) {
+	public void setSoundEngineController(SoundEngineHelper soundEngineController) {
 		if(soundEngineController!=null){
 			this.soundEngineController = soundEngineController;
 		}

@@ -6,11 +6,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
-import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.gl.gui.util.SoundEngineHelper;
 
 public class ControlButton extends JButton implements MouseListener  {
 
-	private SoundEngineController soundEngineController;
+	private SoundEngineHelper soundEngineController;
 	
 	public ControlButton(String text, Color color) {
 		super(text);
@@ -56,11 +56,11 @@ public class ControlButton extends JButton implements MouseListener  {
 		
 	}
 
-	public SoundEngineController getSoundEngineController() {
+	public SoundEngineHelper getSoundEngineController() {
 		return soundEngineController;
 	}
 
-	public void setSoundEngineController(SoundEngineController soundEngineController) {
+	public void setSoundEngineController(SoundEngineHelper soundEngineController) {
 		if(soundEngineController!=null){
 			this.soundEngineController = soundEngineController;
 		}

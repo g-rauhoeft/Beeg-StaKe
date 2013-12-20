@@ -30,6 +30,7 @@ public class BumpButton extends RectComponent{
 		this(position, 0, 0, normalMapLocation, diffuseMapLocation);
 		this.setWidth(diffuseMap.getImageWidth());
 		this.setHeight(diffuseMap.getImageHeight());
+		System.out.println("Width: "+this.getWidth()+" Height: "+this.getHeight());
 	}
 
 	@Override
@@ -49,11 +50,11 @@ public class BumpButton extends RectComponent{
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glTexCoord2f(0, 0);
 		GL11.glVertex2i(position.getX(), position.getY());
-		GL11.glTexCoord2f(1, 0);
+		GL11.glTexCoord2f(diffuseMap.getWidth(), 0);
 		GL11.glVertex2i(position.getX() + width, position.getY());
-		GL11.glTexCoord2f(1, 1);
+		GL11.glTexCoord2f(diffuseMap.getWidth(), diffuseMap.getHeight());
 		GL11.glVertex2i(position.getX() + width, position.getY() + height);
-		GL11.glTexCoord2f(0, 1);
+		GL11.glTexCoord2f(0, diffuseMap.getHeight());
 		GL11.glVertex2i(position.getX(), position.getY() + height);
 		GL11.glEnd();
 		ARBShaderObjects.glUseProgramObjectARB(0);
