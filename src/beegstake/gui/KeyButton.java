@@ -7,13 +7,17 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import beegstake.gl.gui.util.SoundEngineController;
+import beegstake.system.Configuration;
+
 public class KeyButton extends JButton implements MouseListener {
 
 	ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
 	public float percentage = 100;
 		
-	public KeyButton(String name) {
-		super(name);
+	private SoundEngineController soundEngineController = new SoundEngineController(3, 0, "Arabic");
+	public KeyButton(String text) {
+		super(text);
 		this.addMouseListener(this);
 	}
 
@@ -24,16 +28,23 @@ public class KeyButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		this.setBackground(new Color(255,106,106));
+		//this.setBackground(new Color(255,165,0));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+//		Configuration.load("cfg/system.json");
 		if(this.getText()!=null && this.getText().endsWith("#")){
 			this.setBackground(new Color(176,176,176));
 		}else{
 			this.setBackground(new Color(255,255,255));
 		}
+//		int button = e.getButton();
+//		if (soundEngineController.isKeyBlack(button)) {
+//			this.setBackground(new Color(176,176,176));
+//		} else {
+//			this.setBackground(new Color(255,255,255));
+//		}
 	}
 
 	

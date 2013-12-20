@@ -6,10 +6,14 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import beegstake.gl.gui.util.SoundEngineController;
+
 public class ControlButton extends JButton implements MouseListener  {
 
-	public ControlButton(String name, Color color) {
-		super(name);
+	private SoundEngineController soundEngineController;
+	
+	public ControlButton(String text, Color color) {
+		super(text);
 		this.addMouseListener(this);
 		setBackground(color);
 	}
@@ -21,8 +25,18 @@ public class ControlButton extends JButton implements MouseListener  {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent m) {
 		this.setBackground(new Color(224,255,255));
+		
+		Object source = m.getSource();
+		if (source instanceof ControlButton){
+			ControlButton b = (ControlButton)source;
+//			if(b.getText().equals("Key+1")){
+//				getSoundEngineController().setKey(GUI.KEYBUTTONS+1);
+//			}else if(b.getText().equals("Key-1")){
+//				getSoundEngineController().setKey(GUI.KEYBUTTONS-1);
+//			}
+		}
 	}
 
 	@Override
@@ -40,6 +54,16 @@ public class ControlButton extends JButton implements MouseListener  {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public SoundEngineController getSoundEngineController() {
+		return soundEngineController;
+	}
+
+	public void setSoundEngineController(SoundEngineController soundEngineController) {
+		if(soundEngineController!=null){
+			this.soundEngineController = soundEngineController;
+		}
 	}
 
 }
