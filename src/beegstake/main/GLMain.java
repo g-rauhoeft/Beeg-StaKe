@@ -47,8 +47,8 @@ public class GLMain {
 				soundEngine);
 		SoundEngineHelper helperTop = new SoundEngineHelper(5, 0, "Major",
 				soundEngine);
-		helperBottom.setActiveInstrument(5);
-		helperTop.setActiveInstrument(44);
+		helperBottom.setActiveInstrument(0);
+		helperTop.setActiveInstrument(2);
 		int buttonWidth = Display.getWidth() / 20;
 		int buttonHeight = Display.getHeight() / 3;
 		for (int i = 0; i < 20; i++) {

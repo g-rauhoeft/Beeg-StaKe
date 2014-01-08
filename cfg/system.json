@@ -7,7 +7,7 @@
 		"DefaultFontFile" : "comfortaa.json"
 	},
 	"SoundEngine" : {
-		"SoundFont" : "rsc/sf/GeneralUser GS FluidSynth v1.44.sf2"
+		"SoundFont" : "rsc/sf/Sonatina_Symphonic_Orchestra.sf2"
 	},
 	"Scale" : [
 		{"name" : "Major", "spacings" : [2,2,1,2,2,2,1]},
