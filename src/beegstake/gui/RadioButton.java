@@ -13,7 +13,7 @@ import beegstake.system.Configuration;
 
 public class RadioButton extends JRadioButton implements MouseListener {
 
-	private SoundEngineHelper soundEngineController;
+	private SoundEngine soundEngine;
 
 	public RadioButton(String text) {
 		super(text);
@@ -33,9 +33,7 @@ public class RadioButton extends JRadioButton implements MouseListener {
 			if (!bu.isSelected()) {
 				bu.setSelected(true);
 
-//				Configuration.load("cfg/system.json");
-//				SoundEngine soundEng = new SoundEngine();
-//				ArrayList<Instrument> availableInstruments = soundEng.getAvailableInstruments();
+//				ArrayList<Instrument> availableInstruments = getSoundEngine().getAvailableInstruments();
 //				for (Instrument i : availableInstruments) {
 //					if (i.isActive()) {
 //						i.deactivate();
@@ -67,13 +65,13 @@ public class RadioButton extends JRadioButton implements MouseListener {
 
 	}
 
-	public SoundEngineHelper getSoundEngineController() {
-		return soundEngineController;
+	public SoundEngine getSoundEngine() {
+		return soundEngine;
 	}
 
-	public void setSoundEngineController(SoundEngineHelper soundEngineController) {
+	public void setSoundEngine(SoundEngine soundEngineController) {
 		if(soundEngineController!=null){
-			this.soundEngineController = soundEngineController;
+			this.soundEngine = soundEngineController;
 		}
 	}
 

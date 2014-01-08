@@ -12,9 +12,9 @@ import beegstake.system.Configuration;
 
 public class KeyButton extends JButton implements MouseListener {
 
-	ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
-
-//	private SoundEngineHelper soundEngineController = new SoundEngineHelper(3, 0, "Arabic");
+	private ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
+	private SoundEngineHelper soundEngineHelper;
+	
 	public KeyButton(String text) {
 		super(text);
 		this.addMouseListener(this);
@@ -22,24 +22,27 @@ public class KeyButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		this.setBackground(new Color(255,165,0));
+		if(this.getText()!=null && this.getText().endsWith("#")){
+			this.setBackground(new Color(228, 150, 0));
+		}else{
+			this.setBackground(new Color(255, 165, 25));
+		}
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-//		Configuration.load("cfg/system.json");
 		if(this.getText()!=null && this.getText().endsWith("#")){
 			this.setBackground(new Color(176,176,176));
 		}else{
 			this.setBackground(new Color(255,255,255));
 		}
+//TODO: Gregs method to proofe the black key.
 //		int button = e.getButton();
-//		if (soundEngineController.isKeyBlack(button)) {
+//		if (soundEngineHelper.isKeyBlack(button)) {
 //			this.setBackground(new Color(176,176,176));
 //		} else {
 //			this.setBackground(new Color(255,255,255));

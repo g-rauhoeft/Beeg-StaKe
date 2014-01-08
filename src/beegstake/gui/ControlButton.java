@@ -10,7 +10,7 @@ import beegstake.gl.gui.util.SoundEngineHelper;
 
 public class ControlButton extends JButton implements MouseListener  {
 
-	private SoundEngineHelper soundEngineController;
+	private SoundEngineHelper soundEngineHelper;
 	
 	public ControlButton(String text, Color color) {
 		super(text);
@@ -32,9 +32,9 @@ public class ControlButton extends JButton implements MouseListener  {
 		if (source instanceof ControlButton){
 			ControlButton b = (ControlButton)source;
 //			if(b.getText().equals("Key+1")){
-//				getSoundEngineController().setKey(GUI.KEYBUTTONS+1);
+//				getSoundEngineHelper().setKey(GUI.KEYBUTTONS+1);
 //			}else if(b.getText().equals("Key-1")){
-//				getSoundEngineController().setKey(GUI.KEYBUTTONS-1);
+//				getSoundEngineHelper().setKey(GUI.KEYBUTTONS-1);
 //			}
 		}
 	}
@@ -56,13 +56,13 @@ public class ControlButton extends JButton implements MouseListener  {
 		
 	}
 
-	public SoundEngineHelper getSoundEngineController() {
-		return soundEngineController;
+	public SoundEngineHelper getSoundEngineHelper() {
+		return soundEngineHelper;
 	}
 
-	public void setSoundEngineController(SoundEngineHelper soundEngineController) {
-		if(soundEngineController!=null){
-			this.soundEngineController = soundEngineController;
+	public void setSoundEngineHelper(SoundEngineHelper soundEngineHelper) {
+		if(soundEngineHelper!=null){
+			this.soundEngineHelper = soundEngineHelper;
 		}
 	}
 
