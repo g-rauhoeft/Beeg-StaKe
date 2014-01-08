@@ -1,24 +1,17 @@
 package beegstake.main;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import beegstake.audio.SoundEngine;
+import beegstake.gl.gui.BumpButton;
 import beegstake.gl.gui.GLKeyButton;
 import beegstake.gl.gui.GUI;
 import beegstake.gl.gui.KeyImageLocations;
 import beegstake.gl.gui.Label;
-import beegstake.gl.gui.font.Font;
-import beegstake.gl.gui.font.FontRenderer;
 import beegstake.gl.gui.util.DisplayUtilities;
 import beegstake.gl.gui.util.Point;
-import beegstake.gl.gui.util.ResourceManager;
 import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.system.Configuration;
 
@@ -67,10 +60,12 @@ public class GLMain {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
+		BumpButton panel = new BumpButton(new Point(0, buttonHeight), Display.getWidth(), Display.getHeight()-2*buttonHeight, "rsc/img/panel_normal.png", "rsc/img/panel_diffuse.png");
 		Label l = new Label(new Point(Display.getWidth()/2, Display.getHeight()/2), "Test", true);
 		Label l1 = new Label(new Point(Display.getWidth()/3, Display.getHeight()/2), "Test1", false);
 		gui.add(l);
 		gui.add(l1);
+		gui.add(panel);
 		while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.update();
 			gui.injectCursorPosition(

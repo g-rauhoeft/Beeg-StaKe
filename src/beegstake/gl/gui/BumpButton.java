@@ -30,7 +30,6 @@ public class BumpButton extends RectComponent{
 		this(position, 0, 0, normalMapLocation, diffuseMapLocation);
 		this.setWidth(diffuseMap.getImageWidth());
 		this.setHeight(diffuseMap.getImageHeight());
-		System.out.println("Width: "+this.getWidth()+" Height: "+this.getHeight());
 	}
 
 	@Override
