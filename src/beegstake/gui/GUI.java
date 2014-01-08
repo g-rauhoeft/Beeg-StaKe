@@ -2,6 +2,7 @@ package beegstake.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -9,6 +10,7 @@ import java.awt.Event;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -59,7 +62,8 @@ public class GUI extends JFrame{
 	private ControlButton keyMinusOne2 = new ControlButton("Key-1", color);
 	private ControlButton pitchBend2 = new ControlButton("Pitch Blend", color);
 	private ControlButton otherControls2 = new ControlButton("Other Controls", color);
-	private SoundEngineHelper soundEngineController;
+	private SoundEngineHelper soundEngineHelper;
+	private SoundEngine soundEngine;
 	
 	
 	/**
@@ -69,7 +73,8 @@ public class GUI extends JFrame{
 	public GUI(String name){
 		super(name);
 		Configuration.load("cfg/system.json");
-		//this.soundEngineController = new SoundEngineHelper(3, 0, "Arabic");
+//		soundEngine = new SoundEngine();
+//		this.soundEngineHelper = new SoundEngineHelper(3, 0, "Arabic", soundEngine);
 		this.setMinimumSize(new Dimension(1280,768));//1280 x 1024 ist max für Tisch!!
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
@@ -77,18 +82,16 @@ public class GUI extends JFrame{
 	
 	public ArrayList<RadioButton> generateRadioButtons(){
 		ArrayList<RadioButton> radioButtons = new ArrayList<RadioButton>();
-		SoundEngine soundEng = new SoundEngine();
-		ArrayList<Instrument> availableInstruments = soundEng.getAvailableInstruments();
+		SoundEngine soundEngine = new SoundEngine();
+		ArrayList<Instrument> availableInstruments = soundEngine.getAvailableInstruments();
 		ButtonGroup group = new ButtonGroup();
 		RadioButton radioBu;
 		for(int i=0; i<4;i++){
 			String name = availableInstruments.get(i).getInformation().getName();
 			radioBu = new RadioButton(name);
 			radioBu.setBorder(BorderFactory.createEmptyBorder(15, 5, 0, 0));
-
 			radioBu.setBackground(color);
 //			radioBu.setPreferredSize(new Dimension(getWidth()*6/100, 25));
-			radioBu.setSoundEngineController(soundEngineController);
 			group.add(radioBu);
 			radioButtons.add(radioBu);	
 		}
@@ -110,8 +113,8 @@ public class GUI extends JFrame{
 			}else{				
 				button = new KeyButton(KeyNames.getName(i));
 			}
-			//Gregs Methode zur Überprüfung
-//			if (soundEngineController.isKeyBlack(i)) {
+			//TODO: Gregs method for checking the black keys
+//			if (soundEngineHelper.isKeyBlack(i)) {
 //				button.setBackground(new Color(176,176,176));
 //			} else {
 //				button.setBackground(new Color(255,255,255));
@@ -167,36 +170,34 @@ public class GUI extends JFrame{
 		int height= this.getHeight()/3+28;
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(width, height));
-
 		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
+
+		//Buttons at the top
 		panelCenter.add(buttonUpsideDown(octavePlusOne, width*7/100, 100 ));
 		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100, 100));
 		JPanel radioPanelTop = new JPanel();
 		radioPanelTop.setLayout(new FlowLayout());
-		//eigentlich 24/100
 		radioPanelTop.setPreferredSize(new Dimension(width*24/100, 100));
 		radioPanelTop.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
-		radioPanelTop.setBackground(color);
+		radioPanelTop.setBackground(color);	
 		for(RadioButton bu : generateRadioButtons()){
 			bu.setFont(rotatedFont(bu, 1.0));
-			bu.setHorizontalTextPosition(JRadioButton.CENTER);
-			bu.setHorizontalAlignment(SwingConstants.RIGHT);
+			bu.setHorizontalTextPosition(JRadioButton.RIGHT);
 			radioPanelTop.add(bu);
 		}
 		panelCenter.add(radioPanelTop);
-		panelCenter.add(buttonUpsideDown(pitchBend, width*2/10, 100));
-		panelCenter.add(buttonUpsideDown(otherControls, width*28/100, 100));
+		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100, 100));
+		panelCenter.add(buttonUpsideDown(otherControls, width*24/100, 100));
 		panelCenter.add(buttonUpsideDown(octaveMinusOne, width*7/100, 100));
 		panelCenter.add(buttonUpsideDown(keyMinusOne, width*7/100, 100));
 		
-		
+		//Buttons at the bottom.
 		panelCenter.add(buttonNormal(octaveMinusOne2, width*7/100, 100));
 		panelCenter.add(buttonNormal(keyMinusOne2, width*7/100, 100));
-		panelCenter.add(buttonNormal(otherControls2, width*28/100, 100));
-		panelCenter.add(buttonNormal(pitchBend2, width*2/10, 100));
+		panelCenter.add(buttonNormal(otherControls2, width*24/100, 100));
+		panelCenter.add(buttonNormal(pitchBend2, width*24/100, 100));
 		JPanel radioPanelBottom = new JPanel();
 		radioPanelBottom.setLayout(new FlowLayout());
-		//bei mir: 30/100
 		radioPanelBottom.setPreferredSize(new Dimension(width*24/100, 100));
 		radioPanelBottom.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		radioPanelBottom.setBackground(color);
@@ -206,12 +207,7 @@ public class GUI extends JFrame{
 		panelCenter.add(radioPanelBottom);
 		panelCenter.add(buttonNormal(octavePlusOne2, width*7/100, 100));
 		panelCenter.add(buttonNormal(keyPlusOne2, width*7/100, 100));
-		
-		
-		keyPlusOne.setSoundEngineController(soundEngineController);
-		octavePlusOne.setSoundEngineController(soundEngineController);
-		keyPlusOne2.setSoundEngineController(soundEngineController);
-		octavePlusOne2.setSoundEngineController(soundEngineController);	
+			
 		return panelCenter;
 	}
 
@@ -226,23 +222,6 @@ public class GUI extends JFrame{
 		b.setPreferredSize(new Dimension(width, height));
 		return b;
 	}
-	
-//TODO: Nicht mehr nötig evtl. löschen
-//	public JButton buttonOnSideTop(JButton b, int width, int height){
-//		b.setPreferredSize(new Dimension(width, height));
-//		b.setFont(rotatedFont(b, 0.50));
-//		b.setHorizontalTextPosition(JButton.CENTER);
-////		b.setBorder(BorderFactory.createEmptyBorder(0, 0, 55, 15));
-//		return b;
-//	}
-//	
-//	public JButton buttonOnSideBottom(JButton b, int width, int height){
-//		b.setPreferredSize(new Dimension(width, height));
-//		b.setFont(rotatedFont(b, 1.50));
-//		b.setHorizontalTextPosition(JButton.CENTER);
-////		b.setBorder(BorderFactory.createEmptyBorder(55, 0, 0, 0));
-//		return b;
-//	}
 	
 	/**
 	 * Rotates the Text of a Button.

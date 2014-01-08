@@ -51,7 +51,7 @@ public class GUIIntegrationTest {
 		
 	}
 	public static void main(String[] args){
-		GUI gui = new GUI("Hello World");
+		GUI gui = new GUI("BeegStake GUI");
 //		TouchHandler touchHandler = new TouchHandler(gui.getContentPane(), gui.getWidth(), gui.getHeight());
 		TuioClient client = new TuioClient();
 //		client.addTuioListener(touchHandler);
