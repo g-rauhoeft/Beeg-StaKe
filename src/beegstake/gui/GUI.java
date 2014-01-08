@@ -101,6 +101,7 @@ public class GUI extends JFrame{
 	 * @return A List of KeyButtons
 	 */
 	public ArrayList<KeyButton> generateKeyButtons(JPanel panel){
+		keyButtons = new ArrayList<KeyButton>();
 		ArrayList<KeyButton> buttons = new ArrayList<KeyButton>(20);
 		KeyButton button;
 		for (int i=0; i<KEYBUTTONS; i++){
@@ -123,6 +124,7 @@ public class GUI extends JFrame{
 			}
 			button.setBorderPainted(true);
 			buttons.add(button);
+			keyButtons.add(button);
 		}
 		return buttons;
 	}
