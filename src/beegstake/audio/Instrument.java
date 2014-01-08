@@ -36,6 +36,7 @@ public class Instrument {
 				this.channel = i;
 				channelsReserved[i] = true;
 				channels[i].programChange(program);
+				break;
 			}
 		}
 		if(!this.isActive()){

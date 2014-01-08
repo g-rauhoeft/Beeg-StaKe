@@ -18,8 +18,7 @@ import beegstake.system.Configuration;
 public class GLGUITEST0 {
 	public void start() {
 		try {
-			Display.setDisplayMode(DisplayUtilities.getMaxDisplayMode());
-			Display.setFullscreen(true);
+			Display.setDisplayModeAndFullscreen(DisplayUtilities.getMaxDisplayMode());
 			Display.create();
 		} catch (Exception e) {
 			System.exit(0);

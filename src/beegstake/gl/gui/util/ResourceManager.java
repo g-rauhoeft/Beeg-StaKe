@@ -1,5 +1,6 @@
 package beegstake.gl.gui.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -7,9 +8,12 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+import beegstake.gl.gui.font.Font;
+
 public class ResourceManager {
 	private static HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	private static HashMap<String, Shader> shaders = new HashMap<String, Shader>();
+	private static HashMap<String, Font> fonts = new HashMap<String, Font>();
 
 	public static Texture getTexture(String path) {
 		if (!textures.containsKey(path)) {
@@ -34,5 +38,12 @@ public class ResourceManager {
 			shaders.put(path, new Shader(fragCode, vertCode));
 		}
 		return shaders.get(path);
+	}
+
+	public static Font getFont(String path, String filename) {
+		if (!fonts.containsKey(path)) {
+			fonts.put(path, new Font(path, filename));
+		}
+		return fonts.get(path);
 	}
 }

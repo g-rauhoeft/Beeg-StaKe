@@ -10,13 +10,14 @@ public class DisplayUtilities {
 		DisplayMode displayMode = Display.getDisplayMode();
 		try {
 			for(DisplayMode mode : Display.getAvailableDisplayModes()){
-				if(mode.getWidth()>displayMode.getWidth()){
+				if(mode.isFullscreenCapable() && mode.getWidth()>displayMode.getWidth()){
 					displayMode = mode;
 				}
 			}
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(displayMode);
 		return displayMode;
 	} 
 	

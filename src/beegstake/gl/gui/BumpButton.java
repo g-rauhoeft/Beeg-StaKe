@@ -15,7 +15,7 @@ public class BumpButton extends RectComponent{
 	private Texture normalMap, diffuseMap;
 	private int shader;
 	private Point mousePosition;
-
+	
 	public BumpButton(Point position, int width, int height,
 			String normalMapLocation, String diffuseMapLocation) {
 		super(position, width, height);
@@ -65,6 +65,7 @@ public class BumpButton extends RectComponent{
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
+	
 	public Texture getNormalMap() {
 		return normalMap;
 	}

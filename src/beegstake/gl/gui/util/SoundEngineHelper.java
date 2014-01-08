@@ -24,7 +24,7 @@ public class SoundEngineHelper {
 		this.setKey(key);
 		this.setScale(scale);
 		this.soundEngine = soundEngine;
-		this.activeInstrument = 0;
+		this.activeInstrument = -1;
 	}
 
 	public int getLowestKey() {
@@ -68,13 +68,12 @@ public class SoundEngineHelper {
 	}
 
 	public void setActiveInstrument(int activeInstrument) {
-		if (this.soundEngine.getAvailableInstruments().contains(
-				this.activeInstrument)) {
+		if (this.activeInstrument!=-1) {
 			this.soundEngine.getAvailableInstruments()
 					.get(this.activeInstrument).deactivate();
 		}
 		this.activeInstrument = activeInstrument;
-		this.soundEngine.getAvailableInstruments().get(activeInstrument)
+		this.soundEngine.getAvailableInstruments().get(this.activeInstrument)
 				.activate();
 	}
 }
