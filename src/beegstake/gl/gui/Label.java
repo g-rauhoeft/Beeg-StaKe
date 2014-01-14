@@ -38,6 +38,13 @@ public class Label extends RectComponent {
 	public void setRenderer(FontRenderer renderer) {
 		this.renderer = renderer;
 	}
+	
+	@Override
+	public void setPosition(Point position){
+		super.setPosition(position);
+		if(this.renderer != null)
+			this.renderer.setPosition(position);
+	}
 
 	public String getText() {
 		return renderer.getText();

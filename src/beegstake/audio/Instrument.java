@@ -25,50 +25,56 @@ public class Instrument {
 			this.setInformation(information);
 			this.program = program;
 			this.channel = -1;
-		}else{
-			throw new InstrumentNotInitializedException("The instrument class hasn't been initialized.");
+		} else {
+			throw new InstrumentNotInitializedException(
+					"The instrument class hasn't been initialized.");
 		}
 	}
 
 	public void activate() {
 		for (int i = 0; i < channels.length; i++) {
-			if(!channelsReserved[i]){
+			if (!channelsReserved[i]) {
 				this.channel = i;
 				channelsReserved[i] = true;
 				channels[i].programChange(program);
 				break;
 			}
 		}
-		if(!this.isActive()){
-			throw new AllChannelsReservedException("All Channels are reserved. Deactivate an instrument to activate this one.");
+		if (!this.isActive()) {
+			throw new AllChannelsReservedException(
+					"All Channels are reserved. Deactivate an instrument to activate this one.");
 		}
 	}
 
-	public boolean isActive(){
+	public boolean isActive() {
 		return this.channel != -1;
 	}
-	
+
 	public void deactivate() {
-		if(isActive()){
+		if (isActive()) {
 			channelsReserved[this.channel] = false;
 			this.channel = -1;
 		}
 	}
 
 	public void playSound(int key, int volume) {
-		channels[channel].noteOn(key, volume);
+		if (channel != -1)
+			channels[channel].noteOn(key, volume);
 	}
 
 	public void changeModulation(int key, int volume) {
-		channels[channel].setPolyPressure(key, volume);
+		if (channel != -1)
+			channels[channel].setPolyPressure(key, volume);
 	}
 
 	public void changePitch(int pitch) {
-		channels[channel].setPitchBend(pitch);
+		if (channel != -1)
+			channels[channel].setPitchBend(pitch);
 	}
 
 	public void stopSound(int key) {
-		channels[channel].noteOff(key);
+		if (channel != -1)
+			channels[channel].noteOff(key);
 	}
 
 	public InstrumentInformation getInformation() {

@@ -4,7 +4,7 @@
 	},
 	"System" : {
 		"DefaultFontPath" : "rsc/fnt/comfortaa",
-		"DefaultFontFile" : "comfortaa.json"
+		"DefaultFontFile" : "comfortaa20black.json"
 	},
 	"SoundEngine" : {
 		"SoundFont" : "rsc/sf/Sonatina_Symphonic_Orchestra.sf2"

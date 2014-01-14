@@ -6,6 +6,7 @@ import beegstake.gl.gui.BumpButton;
 import beegstake.gl.gui.GLKeyButton;
 import beegstake.gl.gui.GUI;
 import beegstake.gl.gui.InstrumentPanel;
+import beegstake.gl.gui.KeyShiftPanel;
 import beegstake.gl.gui.Panel;
 import beegstake.gl.gui.util.InstrumentPanelImageLocations;
 import beegstake.gl.gui.util.KeyImageLocations;
@@ -91,6 +92,7 @@ public class GUICreator {
 		panel.addComponent(background);
 		InstrumentPanel ip = new InstrumentPanel(new Point(panel.getWidth()/2,panel.getHeight()/2),(int) (panel.getHeight()*0.75), helper, instrumentPanelLocations, false);
 		panel.addComponent(ip);
+	//	KeyShiftPanel ksp = new KeyShiftPanel(new Point(0,panel.getHeight()/2), (int) (panel.getHeight()*0.75), helper, null, false);
 		g.addComponent(panel);
 	}
 }

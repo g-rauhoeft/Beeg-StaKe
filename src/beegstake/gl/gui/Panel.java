@@ -11,14 +11,6 @@ public class Panel extends RectComponent implements IRenderable {
 	protected LinkedList<GUIComponent> components;
 	private HashMap<GUIComponent, HashSet<Integer>> activeCursors;
 
-	public enum HorizontalAlignment {
-		LEFT, RIGHT, CENTER
-	};
-
-	public enum VerticalAlignment {
-		TOP, BOTTOM, CENTER
-	};
-
 	public Panel(Point position, int width, int height) {
 		super(position, width, height);
 		this.components = new LinkedList<GUIComponent>();
@@ -40,10 +32,8 @@ public class Panel extends RectComponent implements IRenderable {
 	public void setPosition(Point position) {
 		if (components != null) {
 			for (GUIComponent component : components) {
-				System.out.println("Component Position Before: "+component.getPosition());
 				component.setPosition(component.getPosition().add(
 						position.substract(this.position)));
-				System.out.println("Component Position After: "+component.getPosition());
 			}
 		}
 		this.position = position;
