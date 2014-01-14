@@ -29,7 +29,7 @@ public class GLGUITEST0 {
 		s.getAvailableInstruments().get(2).activate();
 		ImageButton imgButton = new ImageButton(new Point(250, 250),
 				"rsc/img/test.png");
-		imgButton.add(new ICursorListener() {
+		imgButton.addCursorListener(new ICursorListener() {
 			private Point enterPosition;
 
 			@Override
@@ -64,7 +64,7 @@ public class GLGUITEST0 {
 		});
 		BumpButton imgButton1 = new BumpButton(new Point(702, 250),
 				"rsc/img/key_normal.png", "rsc/img/key_diffuse_black.png");
-		imgButton1.add(new ICursorListener() {
+		imgButton1.addCursorListener(new ICursorListener() {
 			@Override
 			public void cursorOver(CursorEvent event) {
 				((BumpButton) event.getComponent())
@@ -88,7 +88,7 @@ public class GLGUITEST0 {
 		BumpButton imgButton2 = new BumpButton(new Point(750, 250),
 				"rsc/img/key_normal.png",
 				"rsc/img/key_diffuse_white.png");
-		imgButton2.add(new ICursorListener() {
+		imgButton2.addCursorListener(new ICursorListener() {
 			@Override
 			public void cursorOver(CursorEvent event) {
 				s.getAvailableInstruments().get(2).playSound(75, 100);
@@ -105,9 +105,9 @@ public class GLGUITEST0 {
 
 			}
 		});
-		gui.add(imgButton);
-		gui.add(imgButton1);
-		gui.add(imgButton2);
+		gui.addComponent(imgButton);
+		gui.addComponent(imgButton1);
+		gui.addComponent(imgButton2);
 		while (!Display.isCloseRequested()) {
 			Display.update();
 			gui.injectCursorPosition(

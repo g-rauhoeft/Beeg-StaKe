@@ -66,13 +66,18 @@ public class SoundEngineHelper {
 	public Instrument getActiveInstrument() {
 		return this.soundEngine.getAvailableInstruments().get(activeInstrument);
 	}
+	
+	public int getActiveInstrumentId(){
+		return this.activeInstrument;
+	}
 
 	public void setActiveInstrument(int activeInstrument) {
 		if (this.activeInstrument!=-1) {
 			this.soundEngine.getAvailableInstruments()
 					.get(this.activeInstrument).deactivate();
 		}
-		this.activeInstrument = activeInstrument;
+		int numberOfInstruments=this.soundEngine.getAvailableInstruments().size();
+		this.activeInstrument = (activeInstrument+numberOfInstruments)%numberOfInstruments;
 		this.soundEngine.getAvailableInstruments().get(this.activeInstrument)
 				.activate();
 	}

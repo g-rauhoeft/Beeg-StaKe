@@ -80,12 +80,12 @@ public class BeegStakeGUI extends GUI {
 	public void base() {
 		ArrayList<KeyButton> generateButtonsTop = generateKeyButtons(true);
 		for (KeyButton b : generateButtonsTop) {
-			this.add(b);
+			this.addComponent(b);
 		}
 
 		ArrayList<KeyButton> generateButtonsBottom = generateKeyButtons(false);
 		for (KeyButton b : generateButtonsBottom) {
-			this.add(b);
+			this.addComponent(b);
 		}
 	}
 

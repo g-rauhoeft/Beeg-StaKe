@@ -10,5 +10,5 @@ void main()
   	
 	float diffuse = max(dot(normal, lightPosition), 0);  
   
-	gl_FragColor = vec4(diffuse * texture2D(colourMap, gl_TexCoord[0].st).rgb, 1.0);  
+	gl_FragColor = diffuse * texture2D(colourMap, gl_TexCoord[0].st).rgba;  
 }

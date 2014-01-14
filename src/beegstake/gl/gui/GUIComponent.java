@@ -10,6 +10,7 @@ import beegstake.gl.gui.IRenderable;
 
 public abstract class GUIComponent implements IBounds, IRenderable {
 	private LinkedList<ICursorListener> cursorListeners;
+
 	protected Point position;
 	protected int width, height;
 
@@ -24,12 +25,17 @@ public abstract class GUIComponent implements IBounds, IRenderable {
 		return new Point(absolutePosition.getX() - position.getX(),
 				absolutePosition.getY() - position.getY());
 	}
+	
+	public Point getAbsolutePosition(Point relativePosition) {
+		return new Point(relativePosition.getX() + position.getX(),
+				relativePosition.getY() - position.getY());
+	}
 
-	public void add(ICursorListener listener) {
+	public void addCursorListener(ICursorListener listener) {
 		this.cursorListeners.add(listener);
 	}
 
-	public void remove(ICursorListener listener) {
+	public void removeCursorListener(ICursorListener listener) {
 		this.cursorListeners.remove(listener);
 	}
 
@@ -56,7 +62,7 @@ public abstract class GUIComponent implements IBounds, IRenderable {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
+	
 	public void notifyCursorOver(CursorEvent event) {
 		for (ICursorListener listener : cursorListeners) {
 			listener.cursorOver(event);

@@ -1,6 +1,5 @@
 package beegstake.gl.gui;
 
-import beegstake.gl.gui.font.Font;
 import beegstake.gl.gui.font.FontRenderer;
 import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.ResourceManager;

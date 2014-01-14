@@ -19,7 +19,14 @@ public abstract class RectComponent extends GUIComponent {
 	public int getWidth() {
 		return width;
 	}
-
+	
+	public void setProportionalHeight(int height){
+		float proportion = (float)height / this.height;
+		this.height = height;
+		this.width = (int)(proportion*width);
+		System.out.println("Width "+width+" Height "+height );
+	}
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}
@@ -28,6 +35,12 @@ public abstract class RectComponent extends GUIComponent {
 		return height;
 	}
 
+	public void setProportionalWidth(int width){
+		float proportion = (float)width / this.width;
+		this.width = width;
+		this.height = (int)(proportion*height);
+	}
+	
 	public void setHeight(int height) {
 		this.height = height;
 	}

@@ -13,24 +13,6 @@ public class KeyButton extends ImageButton implements ICursorListener {
 	public void render() {
 		super.render();
 	}
-	
-	@Override
-	public void cursorOver(CursorEvent event) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void cursorOut(CursorEvent event) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void cursorMoved(CursorEvent event) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public String getButtonText() {
 		return buttonText;
@@ -41,6 +23,24 @@ public class KeyButton extends ImageButton implements ICursorListener {
 			this.buttonText="";
 		}
 		this.buttonText = buttonText;
+	}
+
+	@Override
+	public void cursorOver(CursorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cursorOut(CursorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cursorMoved(CursorEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

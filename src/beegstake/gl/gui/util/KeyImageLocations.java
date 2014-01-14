@@ -1,4 +1,4 @@
-package beegstake.gl.gui;
+package beegstake.gl.gui.util;
 
 public class KeyImageLocations {
 	public String blackKeyLocation, whiteKeyLocation,

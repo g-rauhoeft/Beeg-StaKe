@@ -1,5 +1,6 @@
 package beegstake.gl.gui;
 
+import beegstake.gl.gui.util.KeyImageLocations;
 import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.ResourceManager;
 import beegstake.gl.gui.util.SoundEngineHelper;
@@ -23,7 +24,7 @@ public class GLKeyButton extends BumpButton implements ICursorListener {
 		this.key = key;
 		this.keyImageLocations = keyImageLocations;
 		this.up = up;
-		this.add(this);
+		this.addCursorListener(this);
 	}
 
 	@Override
