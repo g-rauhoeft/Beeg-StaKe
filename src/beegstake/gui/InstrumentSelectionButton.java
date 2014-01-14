@@ -28,11 +28,10 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 	@Override
 	public void mouseEntered(MouseEvent mE) {
 		this.setBackground(new Color(224,255,255));
+		
 		Object source = mE.getSource();
 		if (source instanceof InstrumentSelectionButton) {
 			InstrumentSelectionButton bu = (InstrumentSelectionButton) source;
-			if (!bu.isSelected()) {
-				bu.setSelected(true);
 
 //				ArrayList<Instrument> availableInstruments = getSoundEngine().getAvailableInstruments();
 //				for (Instrument i : availableInstruments) {
@@ -45,7 +44,6 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 //						i.activate();
 //					}
 //				}
-			}
 		}
 	}
 
