@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -80,20 +82,21 @@ public class GUI extends JFrame{
 		setUndecorated(true); 
 	}
 	
-	public ArrayList<RadioButton> generateRadioButtons(){
-		ArrayList<RadioButton> radioButtons = new ArrayList<RadioButton>();
+	public ArrayList<InstrumentSelectionButton> generateInstrumentSelectionButtons(){
+		ArrayList<InstrumentSelectionButton> radioButtons = new ArrayList<InstrumentSelectionButton>();
 		SoundEngine soundEngine = new SoundEngine();
 		ArrayList<Instrument> availableInstruments = soundEngine.getAvailableInstruments();
-		ButtonGroup group = new ButtonGroup();
-		RadioButton radioBu;
+		//ButtonGroup group = new ButtonGroup();
+		InstrumentSelectionButton instrumentSelBu;
 		for(int i=0; i<4;i++){
 			String name = availableInstruments.get(i).getInformation().getName();
-			radioBu = new RadioButton(name);
-			radioBu.setBorder(BorderFactory.createEmptyBorder(15, 5, 0, 0));
-			radioBu.setBackground(color);
+			instrumentSelBu = new InstrumentSelectionButton(name);
+			instrumentSelBu.setBorder(BorderFactory.createEmptyBorder(15, 5, 0, 0));
+			instrumentSelBu.setBackground(new Color(106,184,210));
+			instrumentSelBu.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
 //			radioBu.setPreferredSize(new Dimension(getWidth()*6/100, 25));
-			group.add(radioBu);
-			radioButtons.add(radioBu);	
+			//.add(radioBu);
+			radioButtons.add(instrumentSelBu);	
 		}
 		return radioButtons;
 	}
@@ -139,6 +142,8 @@ public class GUI extends JFrame{
 	public void base(Container con){
 		int width = this.getWidth();
 		int height= this.getHeight()/3+28;
+		System.out.println("Test" +width);
+		System.out.println("Test" +height);
 		final JPanel panelTop = new JPanel(layoutTop);
 		panelTop.setPreferredSize(new Dimension(width, height));
 		panelTop.setName("top");
@@ -168,6 +173,10 @@ public class GUI extends JFrame{
 	public JPanel controlArea(){
 		int width = this.getWidth();
 		int height= this.getHeight()/3+28;
+		System.out.println(width);
+		System.out.println(height);
+		System.out.println(this.getMinimumSize().getWidth());
+		System.out.println(this.getMinimumSize().getHeight());
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(width, height));
 		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
@@ -175,17 +184,18 @@ public class GUI extends JFrame{
 		//Buttons at the top
 		panelCenter.add(buttonUpsideDown(octavePlusOne, width*7/100, 100 ));
 		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100, 100));
-		JPanel radioPanelTop = new JPanel();
-		radioPanelTop.setLayout(new FlowLayout());
-		radioPanelTop.setPreferredSize(new Dimension(width*24/100, 100));
-		radioPanelTop.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
-		radioPanelTop.setBackground(color);	
-		for(RadioButton bu : generateRadioButtons()){
+		JPanel instrSelectionPanelTop = new JPanel();
+		instrSelectionPanelTop.setLayout(new FlowLayout(0,0,0));
+		instrSelectionPanelTop.setPreferredSize(new Dimension(width*24/100, 100));
+		instrSelectionPanelTop.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
+		instrSelectionPanelTop.setBackground(color);	
+		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons()){
 			bu.setFont(rotatedFont(bu, 1.0));
-			bu.setHorizontalTextPosition(JRadioButton.RIGHT);
-			radioPanelTop.add(bu);
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/2-1, 50));
+			bu.setHorizontalTextPosition(JButton.CENTER);
+			instrSelectionPanelTop.add(bu);
 		}
-		panelCenter.add(radioPanelTop);
+		panelCenter.add(instrSelectionPanelTop);
 		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100, 100));
 		panelCenter.add(buttonUpsideDown(otherControls, width*24/100, 100));
 		panelCenter.add(buttonUpsideDown(octaveMinusOne, width*7/100, 100));
@@ -196,15 +206,16 @@ public class GUI extends JFrame{
 		panelCenter.add(buttonNormal(keyMinusOne2, width*7/100, 100));
 		panelCenter.add(buttonNormal(otherControls2, width*24/100, 100));
 		panelCenter.add(buttonNormal(pitchBend2, width*24/100, 100));
-		JPanel radioPanelBottom = new JPanel();
-		radioPanelBottom.setLayout(new FlowLayout());
-		radioPanelBottom.setPreferredSize(new Dimension(width*24/100, 100));
-		radioPanelBottom.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
-		radioPanelBottom.setBackground(color);
-		for(RadioButton bu : generateRadioButtons()){
-			radioPanelBottom.add(bu);
+		JPanel instrSelectionPanel = new JPanel();
+		instrSelectionPanel.setLayout(new FlowLayout(0,0,0));
+		instrSelectionPanel.setPreferredSize(new Dimension(width*24/100, 100));
+		instrSelectionPanel.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
+		instrSelectionPanel.setBackground(color);
+		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons()){
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/2-1, 50));
+			instrSelectionPanel.add(bu);
 		}
-		panelCenter.add(radioPanelBottom);
+		panelCenter.add(instrSelectionPanel);
 		panelCenter.add(buttonNormal(octavePlusOne2, width*7/100, 100));
 		panelCenter.add(buttonNormal(keyPlusOne2, width*7/100, 100));
 			
@@ -250,7 +261,6 @@ public class GUI extends JFrame{
         frame.setVisible(true);
         System.out.println(frame.getHeight());
         System.out.println(frame.getWidth());
-
     }
     
 //	public static void main(String [] args){
