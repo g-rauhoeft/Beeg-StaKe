@@ -14,10 +14,13 @@ public class KeyButton extends JButton implements MouseListener {
 
 	private ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
 	private SoundEngineHelper soundEngineHelper;
-	
-	public KeyButton(String text) {
+	private int key;
+
+	public KeyButton(String text, SoundEngineHelper helper, int key) {
 		super(text);
 		this.addMouseListener(this);
+		this.soundEngineHelper = helper;
+		this.key = key;
 	}
 
 	@Override
@@ -26,41 +29,53 @@ public class KeyButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		if(this.getText()!=null && this.getText().endsWith("#")){
+		this.soundEngineHelper.getActiveInstrument().playSound(
+				soundEngineHelper.getLowestKey() + key, 100);
+//		for (int i = 0; i < GUI.KEYBUTTONS; i++) {
+//			if (soundEngineHelper.isKeyBlack(i)) {
+//				this.setBackground(new Color(228, 150, 0));
+//			} else {
+//				this.setBackground(new Color(255, 165, 25));
+//			}
+//		}
+		if (this.getText() != null && this.getText().endsWith("#")) {
 			this.setBackground(new Color(228, 150, 0));
-		}else{
+		} else {
 			this.setBackground(new Color(255, 165, 25));
-		}
+ }
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		if(this.getText()!=null && this.getText().endsWith("#")){
-			this.setBackground(new Color(176,176,176));
-		}else{
-			this.setBackground(new Color(255,255,255));
+		this.soundEngineHelper.getActiveInstrument().stopSound(
+				soundEngineHelper.getLowestKey() + key);
+
+		if (this.getText() != null && this.getText().endsWith("#")) {
+			this.setBackground(new Color(176, 176, 176));
+		} else {
+			this.setBackground(new Color(255, 255, 255));
 		}
-//TODO: Gregs method to proofe the black key.
-//		int button = e.getButton();
-//		if (soundEngineHelper.isKeyBlack(button)) {
-//			this.setBackground(new Color(176,176,176));
-//		} else {
-//			this.setBackground(new Color(255,255,255));
+		// TODO: Gregs method to proofe the black key.
+//		for (int i = 0; i < GUI.KEYBUTTONS; i++) {
+//
+//			if (soundEngineHelper.isKeyBlack(i)) {
+//				this.setBackground(new Color(176, 176, 176));
+//			} else {
+//				this.setBackground(new Color(255, 255, 255));
+//			}
 //		}
 	}
 
-	
 	public void addListener(IKeyButtonListener listener) {
 		listeners.add(listener);
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int y_MousePos = e.getY();
 		double maxSize = this.getSize().getHeight();
 		double pw = y_MousePos / maxSize;
-		for(IKeyButtonListener listener : listeners){
+		for (IKeyButtonListener listener : listeners) {
 			listener.onSlide(pw);
 		}
 	}
