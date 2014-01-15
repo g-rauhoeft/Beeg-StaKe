@@ -181,30 +181,29 @@ public class GUI extends JFrame{
 	 */
 	public JPanel controlArea(){
 		int width = this.getWidth();
-		int height= this.getHeight()/3+28;
+		int height= this.getHeight()/3+50;
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(width, height));
-		panelCenter.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
 
 		//Buttons at the top
 		keyPlusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100, 100));
+		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100-10, 100));
 		octavePlusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
 		panelCenter.add(buttonUpsideDown(octavePlusOne, width*7/100, 100 ));
 		JPanel instrSelectionPanelTop = new JPanel();
 		instrSelectionPanelTop.setLayout(new FlowLayout(0,0,0));
-		instrSelectionPanelTop.setPreferredSize(new Dimension(width*24/100, 100));
+		instrSelectionPanelTop.setPreferredSize(new Dimension(width*24/100+1, 100));
 		instrSelectionPanelTop.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		instrSelectionPanelTop.setBackground(defaultBlue);	
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons(true)){
 			bu.setFont(rotatedFont(bu, 1.0));
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/3-1, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/3, 50));
 			bu.setHorizontalTextPosition(JButton.CENTER);
 			instrSelectionPanelTop.add(bu);
 		}
 		panelCenter.add(instrSelectionPanelTop);
-		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100, 100));
-		panelCenter.add(buttonUpsideDown(otherControls, width*24/100, 100));
+		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100+1, 100));
+		panelCenter.add(buttonUpsideDown(otherControls, width*24/100+1, 100));
 		keyMinusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
 		panelCenter.add(buttonUpsideDown(keyMinusOne, width*7/100, 100));
 		octaveMinusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
@@ -215,15 +214,15 @@ public class GUI extends JFrame{
 		panelCenter.add(buttonNormal(octaveMinusOne2, width*7/100, 100));
 		keyMinusOne2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
 		panelCenter.add(buttonNormal(keyMinusOne2, width*7/100, 100));
-		panelCenter.add(buttonNormal(otherControls2, width*24/100, 100));
-		panelCenter.add(buttonNormal(pitchBend2, width*24/100, 100));
+		panelCenter.add(buttonNormal(otherControls2, width*24/100+1, 100));
+		panelCenter.add(buttonNormal(pitchBend2, width*24/100+1, 100));
 		JPanel instrSelectionPanel = new JPanel();
 		instrSelectionPanel.setLayout(new FlowLayout(0,0,0));
-		instrSelectionPanel.setPreferredSize(new Dimension(width*24/100, 100));
+		instrSelectionPanel.setPreferredSize(new Dimension(width*24/100+1, 100));
 		instrSelectionPanel.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		instrSelectionPanel.setBackground(defaultBlue);
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons(false)){
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/3-1, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/3, 50));
 			instrSelectionPanel.add(bu);
 		}
 		panelCenter.add(instrSelectionPanel);
