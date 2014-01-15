@@ -2,41 +2,24 @@ package beegstake.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.Event;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.plaf.FontUIResource;
 
 import beegstake.audio.Instrument;
-import beegstake.audio.SoundEngine;
-import beegstake.gl.gui.util.ResourceManager;
 import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.musictheory.KeyNames;
-import beegstake.system.Configuration;
 
 public class GUI extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -72,7 +55,7 @@ public class GUI extends JFrame{
 		super(name);
 		setHelperTop(engineHelperTop);
 		setHelperBottom(engineHelperBottom);
-		this.setMinimumSize(new Dimension(1280,768));//1280 x 1024 maximum for mt table
+		this.setMinimumSize(new Dimension(1280,1024));//1280 x 1024 maximum for mt table
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
 		generateControlButton();
@@ -181,55 +164,56 @@ public class GUI extends JFrame{
 	 */
 	public JPanel controlArea(){
 		int width = this.getWidth();
-		int height= this.getHeight()/3+50;
+		int height= this.getHeight()/3;
 		final JPanel panelCenter = new JPanel(layoutCenter);
 		panelCenter.setPreferredSize(new Dimension(width, height));
+		int test = height/3;
 
 		//Buttons at the top
 		keyPlusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100-10, 100));
+		panelCenter.add(buttonUpsideDown(keyPlusOne, width*7/100, height/3));
 		octavePlusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonUpsideDown(octavePlusOne, width*7/100, 100 ));
+		panelCenter.add(buttonUpsideDown(octavePlusOne, width*7/100, height/3 ));
 		JPanel instrSelectionPanelTop = new JPanel();
 		instrSelectionPanelTop.setLayout(new FlowLayout(0,0,0));
-		instrSelectionPanelTop.setPreferredSize(new Dimension(width*24/100+1, 100));
+		instrSelectionPanelTop.setPreferredSize(new Dimension(width*24/100+1, height/3));
 		instrSelectionPanelTop.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		instrSelectionPanelTop.setBackground(defaultBlue);	
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons(true)){
 			bu.setFont(rotatedFont(bu, 1.0));
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/3, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/3, test/2));
 			bu.setHorizontalTextPosition(JButton.CENTER);
 			instrSelectionPanelTop.add(bu);
 		}
 		panelCenter.add(instrSelectionPanelTop);
-		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100+1, 100));
-		panelCenter.add(buttonUpsideDown(otherControls, width*24/100+1, 100));
+		panelCenter.add(buttonUpsideDown(pitchBend, width*24/100+1, height/3));
+		panelCenter.add(buttonUpsideDown(otherControls, width*24/100+1, height/3));
 		keyMinusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonUpsideDown(keyMinusOne, width*7/100, 100));
+		panelCenter.add(buttonUpsideDown(keyMinusOne, width*7/100, height/3));
 		octaveMinusOne.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonUpsideDown(octaveMinusOne, width*7/100, 100));
-		
+		panelCenter.add(buttonUpsideDown(octaveMinusOne, width*7/100, height/3));
+
 		//Buttons at the bottom.
 		octaveMinusOne2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonNormal(octaveMinusOne2, width*7/100, 100));
+		panelCenter.add(buttonNormal(octaveMinusOne2, width*7/100, height/3-4));
 		keyMinusOne2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonNormal(keyMinusOne2, width*7/100, 100));
-		panelCenter.add(buttonNormal(otherControls2, width*24/100+1, 100));
-		panelCenter.add(buttonNormal(pitchBend2, width*24/100+1, 100));
+		panelCenter.add(buttonNormal(keyMinusOne2, width*7/100, height/3-4));
+		panelCenter.add(buttonNormal(otherControls2, width*24/100+1, height/3-4));
+		panelCenter.add(buttonNormal(pitchBend2, width*24/100+1, height/3-4));
 		JPanel instrSelectionPanel = new JPanel();
 		instrSelectionPanel.setLayout(new FlowLayout(0,0,0));
-		instrSelectionPanel.setPreferredSize(new Dimension(width*24/100+1, 100));
+		instrSelectionPanel.setPreferredSize(new Dimension(width*24/100+1, height/3-4));
 		instrSelectionPanel.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		instrSelectionPanel.setBackground(defaultBlue);
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons(false)){
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/3, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/3, test/2-2));
 			instrSelectionPanel.add(bu);
 		}
 		panelCenter.add(instrSelectionPanel);
 		octavePlusOne2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonNormal(octavePlusOne2, width*7/100, 100));
+		panelCenter.add(buttonNormal(octavePlusOne2, width*7/100, height/3-4));
 		keyPlusOne2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-		panelCenter.add(buttonNormal(keyPlusOne2, width*7/100, 100));
+		panelCenter.add(buttonNormal(keyPlusOne2, width*7/100, height/3-4));
 			
 		return panelCenter;
 	}
