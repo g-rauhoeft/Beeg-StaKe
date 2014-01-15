@@ -6,21 +6,23 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
+import com.sun.org.apache.xml.internal.security.utils.HelperNodeList;
+
 import beegstake.gl.gui.util.SoundEngineHelper;
 
 public class ControlButton extends JButton implements MouseListener  {
 
 	private SoundEngineHelper soundEngineHelper;
 	
-	public ControlButton(String text, Color color) {
+	public ControlButton(String text, Color color, SoundEngineHelper helper) {
 		super(text);
 		this.addMouseListener(this);
 		setBackground(color);
+		setSoundEngineHelper(helper);
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -32,9 +34,9 @@ public class ControlButton extends JButton implements MouseListener  {
 		if (source instanceof ControlButton){
 			ControlButton b = (ControlButton)source;
 //			if(b.getText().equals("Key+1")){
-//				getSoundEngineHelper().setKey(GUI.KEYBUTTONS+1);
+//				soundEngineHelper.setKey(key);
 //			}else if(b.getText().equals("Key-1")){
-//				getSoundEngineHelper().setKey(GUI.KEYBUTTONS-1);
+//				soundEngineHelper.setKey(key);
 //			}
 		}
 	}
@@ -46,13 +48,11 @@ public class ControlButton extends JButton implements MouseListener  {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 

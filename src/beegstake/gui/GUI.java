@@ -50,55 +50,51 @@ public class GUI extends JFrame{
 		return keyButtons;
 	}
 
-	private Color color = new Color(173,216,230);
-    private ControlButton octavePlusOne = new ControlButton("Octave+1", color);
-	private ControlButton keyPlusOne = new ControlButton("Key+1", color);	
-	private ControlButton octaveMinusOne = new ControlButton("Octave-1", color);
-	private ControlButton keyMinusOne = new ControlButton("Key-1", color);
-	private ControlButton pitchBend = new ControlButton("Pitch Blend", color);
-	private ControlButton otherControls = new ControlButton("Other Controls", color);
-	
-    private ControlButton octavePlusOne2 = new ControlButton("Octave+1", color);
-	private ControlButton keyPlusOne2 = new ControlButton("Key+1", color);	
-	private ControlButton octaveMinusOne2 = new ControlButton("Octave-1", color);
-	private ControlButton keyMinusOne2 = new ControlButton("Key-1", color);
-	private ControlButton pitchBend2 = new ControlButton("Pitch Blend", color);
-	private ControlButton otherControls2 = new ControlButton("Other Controls", color);
-	private SoundEngineHelper soundEngineHelper;
 	private SoundEngine soundEngine;
+	private SoundEngineHelper helper;
+	
+	private Color color = new Color(173,216,230);
+    private ControlButton octavePlusOne = new ControlButton("Octave+1", color, helper);
+	private ControlButton keyPlusOne = new ControlButton("Key+1", color,helper);	
+	private ControlButton octaveMinusOne = new ControlButton("Octave-1", color,helper);
+	private ControlButton keyMinusOne = new ControlButton("Key-1", color,helper);
+	private ControlButton pitchBend = new ControlButton("Pitch Blend", color,helper);
+	private ControlButton otherControls = new ControlButton("Other Controls", color,helper);
+	
+    private ControlButton octavePlusOne2 = new ControlButton("Octave+1", color,helper);
+	private ControlButton keyPlusOne2 = new ControlButton("Key+1", color,helper);	
+	private ControlButton octaveMinusOne2 = new ControlButton("Octave-1", color,helper);
+	private ControlButton keyMinusOne2 = new ControlButton("Key-1", color,helper);
+	private ControlButton pitchBend2 = new ControlButton("Pitch Blend", color,helper);
+	private ControlButton otherControls2 = new ControlButton("Other Controls", color,helper);
 	
 	
 	/**
 	 * GUI Constructor.
 	 * @param name The name of the Application.
 	 */
-	public GUI(String name){
+	public GUI(String name, SoundEngine s, SoundEngineHelper engineHelper){
 		super(name);
-		Configuration.load("cfg/system.json");
-//		soundEngine = new SoundEngine();
-//		this.soundEngineHelper = new SoundEngineHelper(3, 0, "Arabic", soundEngine);
-		this.setMinimumSize(new Dimension(1280,768));//1280 x 1024 ist max für Tisch!!
+		soundEngine = s;
+		helper = engineHelper;
+		this.setMinimumSize(new Dimension(1280,768));//1280 x 1024 maximum for mt table
 		setExtendedState(MAXIMIZED_BOTH);
 		setUndecorated(true); 
 	}
 	
 	public ArrayList<InstrumentSelectionButton> generateInstrumentSelectionButtons(){
-		ArrayList<InstrumentSelectionButton> radioButtons = new ArrayList<InstrumentSelectionButton>();
-		SoundEngine soundEngine = new SoundEngine();
-		ArrayList<Instrument> availableInstruments = soundEngine.getAvailableInstruments();
-		//ButtonGroup group = new ButtonGroup();
+		ArrayList<InstrumentSelectionButton> instrumentSelectionButtons = new ArrayList<InstrumentSelectionButton>();
+		ArrayList<Instrument> availableInstruments = helper.getSoundEngine().getAvailableInstruments();
 		InstrumentSelectionButton instrumentSelBu;
-		for(int i=0; i<4;i++){
+		for(int i=10; i<17;i++){
 			String name = availableInstruments.get(i).getInformation().getName();
-			instrumentSelBu = new InstrumentSelectionButton(name);
+			instrumentSelBu = new InstrumentSelectionButton(name, helper);
 			instrumentSelBu.setBorder(BorderFactory.createEmptyBorder(15, 5, 0, 0));
 			instrumentSelBu.setBackground(new Color(106,184,210));
 			instrumentSelBu.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, new Color(130,196,217), new Color(82,104,110)));
-//			radioBu.setPreferredSize(new Dimension(getWidth()*6/100, 25));
-			//.add(radioBu);
-			radioButtons.add(instrumentSelBu);	
+			instrumentSelectionButtons.add(instrumentSelBu);	
 		}
-		return radioButtons;
+		return instrumentSelectionButtons;
 	}
 	
 	/**
@@ -112,22 +108,22 @@ public class GUI extends JFrame{
 		KeyButton button;
 		for (int i=0; i<KEYBUTTONS; i++){
 			if(panel.getName().equals("top")){
-				button = new KeyButton(KeyNames.getNameRevert(i+4));
+				button = new KeyButton(KeyNames.getNameRevert(i+4), helper, i);
 			}else{				
-				button = new KeyButton(KeyNames.getName(i));
+				button = new KeyButton(KeyNames.getName(i), helper, i);
 			}
-			//TODO: Gregs method for checking the black keys
-//			if (soundEngineHelper.isKeyBlack(i)) {
-//				button.setBackground(new Color(176,176,176));
-//			} else {
-//				button.setBackground(new Color(255,255,255));
-//			}
-			
-			if(button.getText()!=null && button.getText().endsWith("#")){
+			//Gregs method for checking the black keys
+			if (helper.isKeyBlack(i)) {
 				button.setBackground(new Color(176,176,176));
-			}else{
+			} else {
 				button.setBackground(new Color(255,255,255));
 			}
+			
+//			if(button.getText()!=null && button.getText().endsWith("#")){
+//				button.setBackground(new Color(176,176,176));
+//			}else{
+//				button.setBackground(new Color(255,255,255));
+//			}
 			button.setBorderPainted(true);
 			buttons.add(button);
 			keyButtons.add(button);
@@ -191,7 +187,7 @@ public class GUI extends JFrame{
 		instrSelectionPanelTop.setBackground(color);	
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons()){
 			bu.setFont(rotatedFont(bu, 1.0));
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/2-1, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanelTop.getPreferredSize().getWidth()/3-1, 50));
 			bu.setHorizontalTextPosition(JButton.CENTER);
 			instrSelectionPanelTop.add(bu);
 		}
@@ -212,7 +208,7 @@ public class GUI extends JFrame{
 		instrSelectionPanel.setBorder(BorderFactory.createLineBorder(new Color(104,131,139)));
 		instrSelectionPanel.setBackground(color);
 		for(InstrumentSelectionButton bu : generateInstrumentSelectionButtons()){
-			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/2-1, 50));
+			bu.setPreferredSize(new Dimension((int) instrSelectionPanel.getPreferredSize().getWidth()/3-1, 50));
 			instrSelectionPanel.add(bu);
 		}
 		panelCenter.add(instrSelectionPanel);
@@ -246,25 +242,5 @@ public class GUI extends JFrame{
 		return button.getFont().deriveFont(rotate);
 	}
 	
-	
-    /**
-     * Creates the GUI and shows it.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        GUI frame = new GUI("Beeg Stake");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Set up the content pane.
-        frame.base(frame.getContentPane());
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-        System.out.println(frame.getHeight());
-        System.out.println(frame.getWidth());
-    }
-    
-//	public static void main(String [] args){
-//		createAndShowGUI();
-//	}
 }
 

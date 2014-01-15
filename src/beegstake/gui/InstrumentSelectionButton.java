@@ -15,10 +15,13 @@ import beegstake.system.Configuration;
 
 public class InstrumentSelectionButton extends JButton implements MouseListener {
 
-	private SoundEngine soundEngine;
-	public InstrumentSelectionButton(String text) {
+	private ArrayList<Instrument> availableInstruments;
+	SoundEngineHelper helper;
+	
+	public InstrumentSelectionButton(String text, SoundEngineHelper helper) {
 		super(text);
 		this.addMouseListener(this);
+		setHelper(helper);
 	}
 
 	@Override
@@ -32,18 +35,15 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 		Object source = mE.getSource();
 		if (source instanceof InstrumentSelectionButton) {
 			InstrumentSelectionButton bu = (InstrumentSelectionButton) source;
-
-//				ArrayList<Instrument> availableInstruments = getSoundEngine().getAvailableInstruments();
-//				for (Instrument i : availableInstruments) {
-//					if (i.isActive()) {
-//						i.deactivate();
-//					}
-//					if (bu.getText().equals(i.getInformation().getName())) {
-//						// Hier erhalten ide Tasten die T�ne vom gew�hlten
-//						// Instrument
-//						i.activate();
-//					}
-//				}
+			
+			ArrayList<Instrument> availableInstruments = helper.getSoundEngine().getAvailableInstruments();
+			int i = 0;
+			for (Instrument instr : availableInstruments) {
+				if (bu.getText().equals(instr.getInformation().getName())) {
+					helper.setActiveInstrument(i);
+				}
+				i++;
+			}
 		}
 	}
 
@@ -62,14 +62,11 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 
 	}
 
-	public SoundEngine getSoundEngine() {
-		return soundEngine;
+	public SoundEngineHelper getHelper() {
+		return helper;
 	}
 
-	public void setSoundEngine(SoundEngine soundEngineController) {
-		if(soundEngineController!=null){
-			this.soundEngine = soundEngineController;
-		}
+	public void setHelper(SoundEngineHelper helper) {
+		this.helper = helper;
 	}
-
 }
