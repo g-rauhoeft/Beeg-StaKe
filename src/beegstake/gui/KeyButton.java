@@ -29,26 +29,17 @@ public class KeyButton extends JButton implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		this.soundEngineHelper.getActiveInstrument().playSound(
-				soundEngineHelper.getLowestKey() + key, 100);
-//		for (int i = 0; i < GUI.KEYBUTTONS; i++) {
-//			if (soundEngineHelper.isKeyBlack(i)) {
-//				this.setBackground(new Color(228, 150, 0));
-//			} else {
-//				this.setBackground(new Color(255, 165, 25));
-//			}
-//		}
+		this.soundEngineHelper.getActiveInstrument().playSound(soundEngineHelper.getLowestKey() + key, 100);
 		if (this.getText() != null && this.getText().endsWith("#")) {
-			this.setBackground(new Color(228, 150, 0));
+			this.setBackground(new Color(198, 228, 0 ));
 		} else {
-			this.setBackground(new Color(255, 165, 25));
+			this.setBackground(new Color( 221, 255, 0 ));
  }
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		this.soundEngineHelper.getActiveInstrument().stopSound(
-				soundEngineHelper.getLowestKey() + key);
+		this.soundEngineHelper.getActiveInstrument().stopSound(soundEngineHelper.getLowestKey() + key);
 
 		if (this.getText() != null && this.getText().endsWith("#")) {
 			this.setBackground(new Color(176, 176, 176));
