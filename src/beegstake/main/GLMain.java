@@ -11,6 +11,7 @@ import beegstake.gl.gui.util.DisplayUtilities;
 import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.input.GLTUIOHandler;
+import beegstake.input.GLTUIOHandler.TUIOData;
 import beegstake.main.gui.GUICreator;
 import beegstake.system.Configuration;
 
@@ -34,17 +35,26 @@ public class GLMain {
 		helperTop.setActiveInstrument(2);
 		GUICreator.createGUI(gui, helperTop, helperBottom);
 		TuioClient client = new TuioClient();
-		GLTUIOHandler handler = new GLTUIOHandler(gui);
+		GLTUIOHandler handler = new GLTUIOHandler(gui, Display.getWidth(),
+				Display.getHeight());
 		client.addTuioListener(handler);
 		client.connect();
 		while (!Display.isCloseRequested()
 				&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.update();
-			gui.injectCursorPosition(
-					new Point(Mouse.getX(), Display.getHeight() - Mouse.getY()),
-					0);
+			gui.injectCursorPosition( new Point(Mouse.getX(),
+			Display.getHeight() - Mouse.getY()), -1);
+			for (TUIOData data = handler.getAddedData().poll(); data != null; data = handler
+					.getAddedData().poll()) {
+				gui.injectCursorPosition(data.getPosition(), data.getId());
+			}
+			for (TUIOData data = handler.getRemovedData().poll(); data != null; data = handler
+					.getRemovedData().poll()) {
+				gui.removeCursor(data.getPosition(), data.getId());
+			}
 			gui.render();
 		}
+		client.disconnect();
 		Display.destroy();
 	}
 

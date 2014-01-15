@@ -1,5 +1,9 @@
 package beegstake.input;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import org.lwjgl.opengl.Display;
+
 import beegstake.gl.gui.Panel;
 import beegstake.gl.gui.util.Point;
 import TUIO.TuioCursor;
@@ -10,16 +14,51 @@ import TUIO.TuioTime;
 
 public class GLTUIOHandler implements TuioListener {
 	private Panel panel;
+	private int width, height;
+	private ConcurrentLinkedQueue<TUIOData> addedData;
 
-	public GLTUIOHandler(Panel panel) {
-		this.panel = panel;
+	private ConcurrentLinkedQueue<TUIOData> removedData;
+	
+	public class TUIOData {
+		private final Point position;
+		private final int id;
+
+		public TUIOData(Point position, int id) {
+			super();
+			this.position = position;
+			this.id = id;
+		}
+
+		public final Point getPosition() {
+			return position;
+		}
+
+		public final int getId() {
+			return id;
+		}
 	}
 
+	public GLTUIOHandler(Panel panel, int width, int height) {
+		this.panel = panel;
+		this.width = width;
+		this.height = height;
+		addedData = new ConcurrentLinkedQueue<TUIOData>();
+		removedData = new ConcurrentLinkedQueue<TUIOData>();
+	}
+	
+	public ConcurrentLinkedQueue<TUIOData> getAddedData() {
+		return addedData;
+	}
+
+	public ConcurrentLinkedQueue<TUIOData> getRemovedData() {
+		return removedData;
+	}
+	
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
-		TuioPoint tp = arg0.getPosition();
-		Point p = new Point((int) tp.getX(), (int) tp.getY());
-		panel.injectCursorPosition(p, arg0.getCursorID());
+		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
+				- arg0.getScreenY(height));
+		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
 	@Override
@@ -36,9 +75,9 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void removeTuioCursor(TuioCursor arg0) {
-		TuioPoint tp = arg0.getPosition();
-		Point p = new Point((int) tp.getX(), (int) tp.getY());
-		panel.removeCursor(p, arg0.getCursorID());
+		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
+				- arg0.getScreenY(height));
+		removedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
 	@Override
@@ -49,9 +88,9 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void updateTuioCursor(TuioCursor arg0) {
-		TuioPoint tp = arg0.getPosition();
-		Point p = new Point((int) tp.getX(), (int) tp.getY());
-		panel.injectCursorPosition(p, arg0.getCursorID());
+		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
+				- arg0.getScreenY(height));
+		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
 	@Override

@@ -69,6 +69,9 @@ public class Panel extends RectComponent implements IRenderable {
 
 	public void removeCursor(Point position, int id) {
 		for (GUIComponent component : activeCursors.keySet()) {
+			if (component instanceof Panel) {
+				((Panel) component).removeCursor(position, id);
+			}
 			if (activeCursors.get(component).contains(id)) {
 				activeCursors.get(component).remove(id);
 				if (activeCursors.get(component).size() == 0) {
