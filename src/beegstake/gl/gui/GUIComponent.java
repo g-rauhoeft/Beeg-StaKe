@@ -3,10 +3,6 @@ package beegstake.gl.gui;
 import java.util.LinkedList;
 
 import beegstake.gl.gui.util.Point;
-import beegstake.gl.gui.CursorEvent;
-import beegstake.gl.gui.IBounds;
-import beegstake.gl.gui.ICursorListener;
-import beegstake.gl.gui.IRenderable;
 
 public abstract class GUIComponent implements IBounds, IRenderable {
 	private LinkedList<ICursorListener> cursorListeners;

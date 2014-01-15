@@ -63,8 +63,8 @@ public class InstrumentPanel extends Panel {
 		this.leftButton = new BumpButton(new Point(0, 0),
 				this.imageLocations.getLeftButtonNormal(),
 				this.imageLocations.getLeftButton());
-		this.rightButton.setProportionalHeight((int) (this.height * 0.75));
-		this.leftButton.setProportionalHeight((int) (this.height * 0.75));
+		this.rightButton.setProportionalHeight((int) (this.height));
+		this.leftButton.setProportionalHeight((int) (this.height));
 		this.leftButton.setPosition(new Point(0, this.height / 2
 				- leftButton.height / 2));
 		this.rightButton.setPosition(new Point(this.width - rightButton.width,

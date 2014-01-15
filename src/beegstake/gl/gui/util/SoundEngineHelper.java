@@ -35,8 +35,16 @@ public class SoundEngineHelper {
 		this.baseNote = key % SoundEngine.KEYS_PER_OCTAVE;
 	}
 
+	public int getKey() {
+		return this.baseNote;
+	}
+
 	public void setOctave(int octave) {
 		this.octave = octave;
+	}
+
+	public int getOctave() {
+		return this.octave;
 	}
 
 	public ArrayList<Integer> getScaleSpacings() {
@@ -66,18 +74,20 @@ public class SoundEngineHelper {
 	public Instrument getActiveInstrument() {
 		return this.soundEngine.getAvailableInstruments().get(activeInstrument);
 	}
-	
-	public int getActiveInstrumentId(){
+
+	public int getActiveInstrumentId() {
 		return this.activeInstrument;
 	}
 
 	public void setActiveInstrument(int activeInstrument) {
-		if (this.activeInstrument!=-1) {
+		if (this.activeInstrument != -1) {
 			this.soundEngine.getAvailableInstruments()
 					.get(this.activeInstrument).deactivate();
 		}
-		int numberOfInstruments=this.soundEngine.getAvailableInstruments().size();
-		this.activeInstrument = (activeInstrument+numberOfInstruments)%numberOfInstruments;
+		int numberOfInstruments = this.soundEngine.getAvailableInstruments()
+				.size();
+		this.activeInstrument = (activeInstrument + numberOfInstruments)
+				% numberOfInstruments;
 		this.soundEngine.getAvailableInstruments().get(this.activeInstrument)
 				.activate();
 	}

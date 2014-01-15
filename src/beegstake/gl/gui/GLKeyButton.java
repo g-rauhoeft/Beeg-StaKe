@@ -11,6 +11,7 @@ public class GLKeyButton extends BumpButton implements ICursorListener {
 	private int key;
 	private Point enterPosition;
 	private boolean up;
+	private boolean over;
 
 	public GLKeyButton(Point position, int width, int height,
 			SoundEngineHelper helper, int key,
@@ -24,6 +25,7 @@ public class GLKeyButton extends BumpButton implements ICursorListener {
 		this.key = key;
 		this.keyImageLocations = keyImageLocations;
 		this.up = up;
+		this.over = false;
 		this.addCursorListener(this);
 	}
 
@@ -32,21 +34,17 @@ public class GLKeyButton extends BumpButton implements ICursorListener {
 		enterPosition = event.getRelativePosition();
 		float percentage = enterPosition.getY()
 				/ (float) event.getComponent().getHeight();
-		this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
-				.getPressedKeyLocation()));
-		this.helper.getActiveInstrument().playSound(
-				helper.getLowestKey() + key, !up?(int) (127 * percentage): 127-(int) (127 * percentage));
+		this.over = true;
+		this.helper.getActiveInstrument()
+				.playSound(
+						helper.getLowestKey() + key,
+						!up ? (int) (127 * percentage)
+								: 127 - (int) (127 * percentage));
 	}
 
 	@Override
 	public void cursorOut(CursorEvent event) {
-		if (helper.isKeyBlack(key)) {
-			this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
-					.getBlackKeyLocation()));
-		} else {
-			this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
-					.getWhiteKeyLocation()));
-		}
+		this.over = false;
 		this.helper.getActiveInstrument()
 				.stopSound(helper.getLowestKey() + key);
 	}
@@ -55,5 +53,22 @@ public class GLKeyButton extends BumpButton implements ICursorListener {
 	public void cursorMoved(CursorEvent event) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void render() {
+		if (over) {
+			this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
+					.getPressedKeyLocation()));
+		} else {
+			if (helper.isKeyBlack(key)) {
+				this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
+						.getBlackKeyLocation()));
+			} else {
+				this.setDiffuseMap(ResourceManager.getTexture(keyImageLocations
+						.getWhiteKeyLocation()));
+			}
+		}
+		super.render();
 	}
 }

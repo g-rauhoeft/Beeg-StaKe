@@ -8,6 +8,11 @@ public class Point {
 		this.setY(y);
 	}
 
+	public Point(){
+		this.setX(0);
+		this.setY(0);
+	}
+	
 	public int getX() {
 		return x;
 	}

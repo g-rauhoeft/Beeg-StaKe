@@ -11,7 +11,7 @@ import beegstake.gl.gui.Panel;
 import beegstake.gl.gui.util.InstrumentPanelImageLocations;
 import beegstake.gl.gui.util.KeyImageLocations;
 import beegstake.gl.gui.util.Point;
-import beegstake.gl.gui.util.ResourceManager;
+import beegstake.gl.gui.util.SimpleButtonLocations;
 import beegstake.gl.gui.util.SoundEngineHelper;
 
 public class GUICreator {
@@ -28,6 +28,9 @@ public class GUICreator {
 			"rsc/img/button_left_diffuse.png",
 			"rsc/img/button_right_diffuse.png",
 			"rsc/img/button_left_normal.png", "rsc/img/button_right_normal.png");
+	public static final SimpleButtonLocations simpleButtonLocations = new SimpleButtonLocations(
+			"rsc/img/simple_button_normal.png",
+			"rsc/img/simple_button_diffuse.png");
 	public static int buttonWidth;
 	public static int buttonHeight;
 
@@ -71,13 +74,26 @@ public class GUICreator {
 		int height = buttonHeight / 2;
 		Panel panel = new Panel(new Point(0, buttonHeight), Display.getWidth(),
 				height);
+		int componentHeight = (int) (panel.getHeight() * 0.75);
 		BumpButton background = new BumpButton(new Point(0, 0),
 				Display.getWidth(), height,
 				"rsc/img/center_panel_top_normal.png",
 				"rsc/img/center_panel_top_diffuse.png");
 		panel.addComponent(background);
-		InstrumentPanel ip = new InstrumentPanel(new Point(panel.getWidth()/2,panel.getHeight()/2),(int) (panel.getHeight()*0.75), helper, instrumentPanelLocations, true);
+		InstrumentPanel ip = new InstrumentPanel(new Point(
+				panel.getWidth() / 2, panel.getHeight() / 2),
+				(int) (panel.getHeight() * 0.75), helper,
+				instrumentPanelLocations, true);
 		panel.addComponent(ip);
+		KeyShiftPanel downShift = new KeyShiftPanel(
+				new Point(Display.getWidth() - 2 * componentHeight,
+						panel.getHeight() / 2), componentHeight * 2,
+				componentHeight, helper, simpleButtonLocations, false, true);
+		KeyShiftPanel upShift = new KeyShiftPanel(new Point(0,
+				panel.getHeight() / 2), componentHeight * 2, componentHeight,
+				helper, simpleButtonLocations, true, true);
+		panel.addComponent(downShift);
+		panel.addComponent(upShift);
 		g.addComponent(panel);
 	}
 
@@ -85,14 +101,24 @@ public class GUICreator {
 		int height = buttonHeight / 2;
 		Panel panel = new Panel(new Point(0, buttonHeight + height),
 				Display.getWidth(), height);
-		BumpButton background = new BumpButton(new Point(0, 0),
-				Display.getWidth(), height,
-				"rsc/img/center_panel_bottom_normal.png",
+		int componentHeight = (int) (panel.getHeight() * 0.75);
+		BumpButton background = new BumpButton(new Point(), Display.getWidth(),
+				height, "rsc/img/center_panel_bottom_normal.png",
 				"rsc/img/center_panel_bottom_diffuse.png");
 		panel.addComponent(background);
-		InstrumentPanel ip = new InstrumentPanel(new Point(panel.getWidth()/2,panel.getHeight()/2),(int) (panel.getHeight()*0.75), helper, instrumentPanelLocations, false);
+		InstrumentPanel ip = new InstrumentPanel(new Point(
+				panel.getWidth() / 2, panel.getHeight() / 2), componentHeight,
+				helper, instrumentPanelLocations, false);
 		panel.addComponent(ip);
-	//	KeyShiftPanel ksp = new KeyShiftPanel(new Point(0,panel.getHeight()/2), (int) (panel.getHeight()*0.75), helper, null, false);
+		KeyShiftPanel downShift = new KeyShiftPanel(new Point(0,
+				panel.getHeight() / 2), componentHeight * 2, componentHeight,
+				helper, simpleButtonLocations, false, false);
+		KeyShiftPanel upShift = new KeyShiftPanel(new Point(Display.getWidth()
+				- 2 * componentHeight, panel.getHeight() / 2),
+				componentHeight * 2, componentHeight, helper,
+				simpleButtonLocations, true, false);
+		panel.addComponent(downShift);
+		panel.addComponent(upShift);
 		g.addComponent(panel);
 	}
 }
