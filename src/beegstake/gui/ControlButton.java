@@ -13,12 +13,13 @@ import beegstake.gl.gui.util.SoundEngineHelper;
 public class ControlButton extends JButton implements MouseListener  {
 
 	private SoundEngineHelper soundEngineHelper;
+	private Color darkBlue = new Color(56,152,184);
 	
 	public ControlButton(String text, Color color, SoundEngineHelper helper) {
 		super(text);
 		this.addMouseListener(this);
 		setBackground(color);
-		setSoundEngineHelper(helper);
+		this.soundEngineHelper = helper;
 	}
 	
 	@Override
@@ -34,16 +35,31 @@ public class ControlButton extends JButton implements MouseListener  {
 		if (source instanceof ControlButton){
 			ControlButton b = (ControlButton)source;
 //			if(b.getText().equals("Key+1")){
-//				soundEngineHelper.setKey(key);
+//				soundEngineHelper.setKey(soundEngineHelper.getKey() + 1);
 //			}else if(b.getText().equals("Key-1")){
-//				soundEngineHelper.setKey(key);
+//				soundEngineHelper.setKey(soundEngineHelper.getKey() + -1);
+//			}
+//			
+//			if(b.getText().equals("Octave+1")){
+//				soundEngineHelper.setOctave(soundEngineHelper.getOctave() + 1);
+//			}else if(b.getText().equals("Octave-1")){
+//				soundEngineHelper.setOctave(soundEngineHelper.getOctave() + -1);
 //			}
 		}
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		this.setBackground(new Color(173,216,230));
+	public void mouseExited(MouseEvent m) {
+		Object source = m.getSource();
+		if (source instanceof ControlButton){
+			ControlButton b = (ControlButton)source;
+			if(b.getText().equals("Pitch Bend")||b.getText().equals("Other Controls")){
+				b.setBackground(new Color(173,216,230));
+			}
+			else{
+				this.setBackground(darkBlue);
+			}
+		}
 	}
 
 	@Override
@@ -55,15 +71,4 @@ public class ControlButton extends JButton implements MouseListener  {
 	public void mouseReleased(MouseEvent arg0) {
 		
 	}
-
-	public SoundEngineHelper getSoundEngineHelper() {
-		return soundEngineHelper;
-	}
-
-	public void setSoundEngineHelper(SoundEngineHelper soundEngineHelper) {
-		if(soundEngineHelper!=null){
-			this.soundEngineHelper = soundEngineHelper;
-		}
-	}
-
 }

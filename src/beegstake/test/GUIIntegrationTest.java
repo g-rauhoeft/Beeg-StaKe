@@ -18,9 +18,12 @@ public class GUIIntegrationTest {
 	public static void main(String[] args){
 		Configuration.load("cfg/system.json");
 		final SoundEngine s = new SoundEngine();
-		SoundEngineHelper helper = new SoundEngineHelper(4, 0, "Major",s);
-		helper.setActiveInstrument(0);
-		GUI gui = new GUI("BeegStake GUI", s, helper);
+		SoundEngineHelper helperTop = new SoundEngineHelper(5, 0, "Major",s);
+		SoundEngineHelper helperBottom = new SoundEngineHelper(5, 0, "Major",s);
+
+		helperTop.setActiveInstrument(0);
+		helperBottom.setActiveInstrument(0);
+		GUI gui = new GUI("BeegStake GUI", helperTop, helperBottom);
 		TuioClient client = new TuioClient();
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.

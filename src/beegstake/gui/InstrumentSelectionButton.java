@@ -18,10 +18,10 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 	private ArrayList<Instrument> availableInstruments;
 	SoundEngineHelper helper;
 	
-	public InstrumentSelectionButton(String text, SoundEngineHelper helper) {
+	public InstrumentSelectionButton(String text, SoundEngineHelper engineHelper) {
 		super(text);
 		this.addMouseListener(this);
-		setHelper(helper);
+		setHelper(engineHelper);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class InstrumentSelectionButton extends JButton implements MouseListener 
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		this.setBackground(new Color(106,184,210));
+		this.setBackground(new Color(126,193,216));
 	}
 
 	@Override
