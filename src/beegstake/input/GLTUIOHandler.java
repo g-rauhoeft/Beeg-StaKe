@@ -56,8 +56,7 @@ public class GLTUIOHandler implements TuioListener {
 	
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
-				- arg0.getScreenY(height));
+		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
 		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
@@ -75,8 +74,7 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void removeTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
-				- arg0.getScreenY(height));
+		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
 		removedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
@@ -88,8 +86,7 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void updateTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
-				- arg0.getScreenY(height));
+		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
 		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
