@@ -12,6 +12,7 @@ import beegstake.gl.gui.util.Point;
 import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.input.GLTUIOHandler;
 import beegstake.input.GLTUIOHandler.TUIOData;
+import beegstake.input.PointerLocations;
 import beegstake.main.gui.GUICreator;
 import beegstake.system.Configuration;
 
@@ -42,8 +43,10 @@ public class GLMain {
 		while (!Display.isCloseRequested()
 				&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.update();
-			gui.injectCursorPosition( new Point(Mouse.getX(),
-			Display.getHeight() - Mouse.getY()), -1);
+			Point mousePosition = new Point(Mouse.getX(), Display.getHeight()
+					- Mouse.getY());
+			gui.injectCursorPosition(mousePosition, -1);
+			PointerLocations.addPoint(-1, mousePosition);
 			for (TUIOData data = handler.getAddedData().poll(); data != null; data = handler
 					.getAddedData().poll()) {
 				gui.injectCursorPosition(data.getPosition(), data.getId());

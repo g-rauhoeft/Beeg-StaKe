@@ -1,12 +1,12 @@
 package beegstake.input;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import beegstake.gl.gui.util.Point;
 
 public class PointerLocations {
-	private static HashMap<Integer, Point> pointerLocations = new HashMap<Integer, Point>();
+	private static ConcurrentHashMap<Integer, Point> pointerLocations = new ConcurrentHashMap<Integer, Point>();
 	
 	public static Collection<Point> getPoints(){
 		return pointerLocations.values();
@@ -22,5 +22,13 @@ public class PointerLocations {
 	
 	public static int size(){
 		return pointerLocations.size();
+	}
+	
+	public static Point getAveragePoint(){
+		Point point = new Point();
+		for(Point p : getPoints()){
+			point = point.add(p);
+		}
+		return point.divide(size());
 	}
 }

@@ -36,6 +36,10 @@ public class Point {
 	public Point substract(Point point) {
 		return new Point(this.getX() - point.getX(), this.getY() - point.getY());
 	}
+	
+	public Point divide(float divisor){
+		return new Point((int)(this.getX()/divisor), (int)(this.getY()/divisor));
+	}
 
 	@Override
 	public String toString() {

@@ -39,26 +39,14 @@ public class BumpButton extends RectComponent{
 
 	@Override
 	public void render() {
-		mousePosition = new Point(Mouse.getX(), Mouse.getY());
 		int diffuseloc = GL20.glGetUniformLocation(shader, "colourMap");
 		int normalloc = GL20.glGetUniformLocation(shader, "normalMap");
 		int mouseloc = GL20.glGetUniformLocation(shader, "mouse");
-		int posloc = GL20.glGetUniformLocation(shader, "mousePositions");
-		int countloc = GL20.glGetUniformLocation(shader, "count");
 		ARBShaderObjects.glUseProgramObjectARB(shader);
 		GL20.glUniform1i(diffuseloc, 0);
 		GL20.glUniform1i(normalloc, 1);
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(40);
-		int count = 0;
-		for(Point p : PointerLocations.getPoints()){
-			buffer.put(p.getX());
-			buffer.put(p.getY());
-			count++;
-		}
-		GL20.glUniform1i(countloc, count);
-		buffer.rewind();
-		GL20.glUniform2(posloc, buffer);
-		GL20.glUniform3f(mouseloc, mousePosition.getX(),mousePosition.getY(),200);
+		Point average = PointerLocations.getAveragePoint();
+		GL20.glUniform3f(mouseloc, average.getX(),average.getY(),200);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + 0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, diffuseMap.getTextureID());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + 1);
