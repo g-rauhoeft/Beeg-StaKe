@@ -4,12 +4,13 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.lwjgl.opengl.Display;
 
+import beegstake.gl.gui.Panel;
+import beegstake.gl.gui.util.Point;
 import TUIO.TuioCursor;
 import TUIO.TuioListener;
 import TUIO.TuioObject;
+import TUIO.TuioPoint;
 import TUIO.TuioTime;
-import beegstake.gl.gui.Panel;
-import beegstake.gl.gui.util.Point;
 
 public class GLTUIOHandler implements TuioListener {
 	private Panel panel;
@@ -55,7 +56,8 @@ public class GLTUIOHandler implements TuioListener {
 	
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
+		Point p = new Point(arg0.getScreenX(width), Display.getHeight()
+				- arg0.getScreenY(height));
 		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
