@@ -16,7 +16,6 @@ public class GLTUIOHandler implements TuioListener {
 	private Panel panel;
 	private int width, height;
 	private ConcurrentLinkedQueue<TUIOData> addedData;
-
 	private ConcurrentLinkedQueue<TUIOData> removedData;
 	
 	public class TUIOData {
@@ -54,9 +53,14 @@ public class GLTUIOHandler implements TuioListener {
 		return removedData;
 	}
 	
+	public Point toPoint(TuioCursor cursor){
+		return new Point(cursor.getScreenX(width),cursor.getScreenY(height));
+	}
+	
 	@Override
 	public void addTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
+		Point p = toPoint(arg0);
+		PointerLocations.addPoint(arg0.getCursorID(), p);
 		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
@@ -74,7 +78,8 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void removeTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
+		Point p = toPoint(arg0);
+		PointerLocations.removePoint(arg0.getCursorID());
 		removedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
 
@@ -86,10 +91,11 @@ public class GLTUIOHandler implements TuioListener {
 
 	@Override
 	public void updateTuioCursor(TuioCursor arg0) {
-		Point p = new Point(arg0.getScreenX(width), arg0.getScreenY(height));
+		Point p = toPoint(arg0);
+		PointerLocations.addPoint(arg0.getCursorID(), p);
 		addedData.add(new TUIOData(p, arg0.getCursorID()));
 	}
-
+	
 	@Override
 	public void updateTuioObject(TuioObject arg0) {
 		// TODO Auto-generated method stub
