@@ -15,6 +15,7 @@ import beegstake.input.GLTUIOHandler.TUIOData;
 import beegstake.input.PointerLocations;
 import beegstake.main.gui.GUICreator;
 import beegstake.system.Configuration;
+import beegstake.system.util.Time;
 
 public class GLMain {
 	public void start() {
@@ -40,12 +41,14 @@ public class GLMain {
 				Display.getHeight());
 		client.addTuioListener(handler);
 		client.connect();
+		Time time = new Time();
 		while (!Display.isCloseRequested()
 				&& !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.update();
-			Point mousePosition = new Point(Mouse.getX(), Display.getHeight()
-					- Mouse.getY());
-			gui.injectCursorPosition(mousePosition, -1);
+			int delta = time.getDelta();
+			PointerLocations.update(delta);
+			Point mousePosition = new Point(Mouse.getX(), Mouse.getY());
+			gui.injectCursorPosition(new Point(Mouse.getX(), Display.getHeight()-Mouse.getY()),-1);
 			PointerLocations.addPoint(-1, mousePosition);
 			for (TUIOData data = handler.getAddedData().poll(); data != null; data = handler
 					.getAddedData().poll()) {
