@@ -1,19 +1,14 @@
-package beegstake.test;
-
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+package beegstake.main;
 
 import javax.swing.JFrame;
-
 import TUIO.TuioClient;
 import beegstake.audio.SoundEngine;
 import beegstake.gl.gui.util.SoundEngineHelper;
 import beegstake.gui.GUI;
-import beegstake.gui.KeyButton;
 import beegstake.input.TouchHandler;
 import beegstake.system.Configuration;
 
-public class GUIIntegrationTest {
+public class AWTMain {
 
 	public static void main(String[] args){
 		Configuration.load("cfg/system.json");

@@ -242,11 +242,11 @@ public class GUI extends JFrame{
 		return button.getFont().deriveFont(rotate);
 	}
 
-	public void setHelperTop(SoundEngineHelper helperTop) {
+	private void setHelperTop(SoundEngineHelper helperTop) {
 		this.helperTop = helperTop;
 	}
 
-	public void setHelperBottom(SoundEngineHelper helperBottom) {
+	private void setHelperBottom(SoundEngineHelper helperBottom) {
 		this.helperBottom = helperBottom;
 	}
 	

@@ -12,7 +12,6 @@ import beegstake.system.Configuration;
 
 public class KeyButton extends JButton implements MouseListener {
 
-	private ArrayList<IKeyButtonListener> listeners = new ArrayList<IKeyButtonListener>();
 	private SoundEngineHelper soundEngineHelper;
 	private int key;
 
@@ -57,23 +56,14 @@ public class KeyButton extends JButton implements MouseListener {
 //		}
 	}
 
-	public void addListener(IKeyButtonListener listener) {
-		listeners.add(listener);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		int y_MousePos = e.getY();
-		double maxSize = this.getSize().getHeight();
-		double pw = y_MousePos / maxSize;
-		for (IKeyButtonListener listener : listeners) {
-			listener.onSlide(pw);
-		}
-	}
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		
 	}
 
 }
