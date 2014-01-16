@@ -115,12 +115,6 @@ public class GUI extends JFrame{
 			}else{
 				button.setBackground(new Color(255,255,255));
 			}
-			//Gregs method for checking the black keys
-//			if (helperTop.isKeyBlack(i)) {
-//				button.setBackground(new Color(176,176,176));
-//			} else {
-//				button.setBackground(new Color(255,255,255));
-//			}
 			button.setBorderPainted(true);
 			buttons.add(button);
 		}

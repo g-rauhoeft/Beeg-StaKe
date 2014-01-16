@@ -45,15 +45,6 @@ public class KeyButton extends JButton implements MouseListener {
 		} else {
 			this.setBackground(new Color(255, 255, 255));
 		}
-		// TODO: Gregs method to proofe the black key.
-//		for (int i = 0; i < GUI.KEYBUTTONS; i++) {
-//
-//			if (soundEngineHelper.isKeyBlack(i)) {
-//				this.setBackground(new Color(176, 176, 176));
-//			} else {
-//				this.setBackground(new Color(255, 255, 255));
-//			}
-//		}
 	}
 
 	@Override

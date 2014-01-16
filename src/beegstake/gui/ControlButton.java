@@ -34,6 +34,7 @@ public class ControlButton extends JButton implements MouseListener  {
 		Object source = m.getSource();
 		if (source instanceof ControlButton){
 			ControlButton b = (ControlButton)source;
+			//TODO: Finish Button Implementation, this Code doesn't work
 //			if(b.getText().equals("Key+1")){
 //				soundEngineHelper.setKey(soundEngineHelper.getKey() + 1);
 //			}else if(b.getText().equals("Key-1")){
