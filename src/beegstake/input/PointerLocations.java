@@ -14,9 +14,8 @@ public class PointerLocations {
 		System.out.println("Delta: "+delta);
 		if (delta != 0) {
 			Point direction = getCurrentPosition().substract(getAveragePoint());
-			direction = direction.divide(100f).multiply((float)delta);
-			speed = speed.substract(direction).multiply(0.8f);
-			System.out.println(speed);
+			direction = direction.divide(300f).multiply((float)delta);
+			speed = speed.substract(direction).multiply(0.9f);
 			position = position.add(speed);
 		}
 	}
