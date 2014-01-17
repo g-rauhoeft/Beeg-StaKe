@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import beegstake.gl.gui.util.DisplayUtilities;
 import beegstake.gl.gui.util.Point;
 
-public class Panel extends RectComponent implements IRenderable {
+public class Panel extends RectComponent {
 	protected LinkedList<GUIComponent> components;
 	private HashMap<GUIComponent, HashSet<Integer>> activeCursors;
 

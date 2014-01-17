@@ -1,15 +1,10 @@
 package beegstake.gl.gui;
 
-import java.nio.FloatBuffer;
-
-import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
 import org.newdawn.slick.opengl.Texture;
 
 import beegstake.gl.gui.util.Point;
@@ -47,7 +42,7 @@ public class BumpButton extends RectComponent{
 		GL20.glUniform1i(diffuseloc, 0);
 		GL20.glUniform1i(normalloc, 1);
 		Point pos = PointerLocations.getCurrentPosition();
-		GL20.glUniform3f(mouseloc, pos.getX(),pos.getY(),200);
+		GL20.glUniform3f(mouseloc, pos.getX(),pos.getY(),400);
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + 0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, diffuseMap.getTextureID());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0 + 1);
