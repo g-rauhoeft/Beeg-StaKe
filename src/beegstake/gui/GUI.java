@@ -128,8 +128,6 @@ public class GUI extends JFrame{
 	public void base(Container con){
 		int width = this.getWidth();
 		int height= this.getHeight()/3+28;
-		System.out.println("Test" +width);
-		System.out.println("Test" +height);
 		final JPanel panelTop = new JPanel(layoutTop);
 		panelTop.setPreferredSize(new Dimension(width, height));
 		panelTop.setName("top");

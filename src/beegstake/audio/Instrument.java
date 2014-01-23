@@ -4,7 +4,6 @@ import javax.sound.midi.MidiChannel;
 
 import beegstake.audio.exception.AllChannelsReservedException;
 import beegstake.audio.exception.InstrumentNotInitializedException;
-
 public class Instrument {
 	private static MidiChannel[] channels;
 	private static Boolean[] channelsReserved;

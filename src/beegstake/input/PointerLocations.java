@@ -11,7 +11,6 @@ public class PointerLocations {
 	private static Point position = new Point();
 
 	public static void update(long delta) {
-		System.out.println("Delta: "+delta);
 		if (delta != 0) {
 			Point direction = getCurrentPosition().substract(getAveragePoint());
 			direction = direction.divide(300f).multiply((float)delta);
